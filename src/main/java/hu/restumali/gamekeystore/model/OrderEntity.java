@@ -3,10 +3,12 @@ package hu.restumali.gamekeystore.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Sort;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +20,7 @@ public class OrderEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity customer;
 
@@ -28,7 +30,14 @@ public class OrderEntity implements Serializable {
 
     private Integer orderSum;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coupon_id")
     private CouponEntity coupon;
+
+    @ElementCollection
+    @CollectionTable(name = "order_items")
+    @OrderBy("product.name")
+    private List<OrderItem> items;
 
 
 

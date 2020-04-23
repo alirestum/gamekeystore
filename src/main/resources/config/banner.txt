@@ -4,3 +4,7 @@
 / /_/ / /_/ / / / / / /  __/ ,< /  __/ /_/ /___/ / /_/ /_/ / /  /  __/
 \____/\__,_/_/ /_/ /_/\___/_/|_|\___/\__, //____/\__/\____/_/   \___/
                                     /____/
+    Creator: Restum Ali
+    Email: restumalii@gmail.com
+    Github: github.com/alirestum
+    Spring Boot: ${spring-boot.formatted-version}

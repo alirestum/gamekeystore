@@ -35,7 +35,10 @@ public class UserEntity implements Serializable {
     private Address address;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private Collection<OrderEntity> orders;
+    private List<OrderEntity> orders;
+
+    @Enumerated(EnumType.ORDINAL)
+    private UserRoleTypes role;
 
 
 }
