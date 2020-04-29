@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Coupons</title>
+    <th:block th:include="fragments/header.html :: header"></th:block>
+</head>
+<body>
+<div class="container text-center my-3">
+    <h1>Coupons</h1>
+    <div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
+    <div class="btn btn-primary my-1">Add new coupon</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Discount amount:</th>
+            <th>Expiration date:</th>
+            <th>Times used:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="coupon : ${couponsList}">
+            <td th:text="${coupon.name}">Type</td>
+            <td th:text="${coupon.discount}">Address</td>
+            <td th:text="${coupon.validUntil}">500</td>
+            <td th:text="${coupon.timesUsed}">500</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

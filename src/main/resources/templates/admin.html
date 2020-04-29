@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Webshop Admin</title>
+    <th:block th:include="fragments/header.html :: header"></th:block>
 </head>
 <body>
-admin page
+<div class="container text-center my-3">
+    <h1>Admin panel</h1>
+<div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
+</div>
 </body>
 </html>
