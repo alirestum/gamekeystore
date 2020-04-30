@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
 
     public OrderItem createOrderItem(ProductEntity product){
-
+        return new OrderItem(product);
     }
 }

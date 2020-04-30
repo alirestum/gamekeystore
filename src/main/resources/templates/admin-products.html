@@ -8,24 +8,31 @@
 <div class="container text-center my-3">
     <h1>Products</h1>
     <div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
-    <div class="btn btn-primary my-1">Add new product</div>
+    <a th:href="@{~/admin/products/addproduct}"><div class="btn btn-primary my-1">Add new product</div></a>
+    <a th:href="@{~/admin/importproducts}"><div class="btn btn-primary my-1">Import products</div></a>
     <table class="table table-striped">
         <thead>
         <tr>
+            <th></th>
             <th>Name</th>
             <th>Base price:</th>
             <th>Sale price:</th>
             <th>Platform:</th>
             <th>Categories:</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product : ${productsList}">
+            <td><img th:src="|/cnd/${product.featuredImageUrl}|" class="admin-product-image"></td>
             <td th:text="${product.name}">Type</td>
             <td th:text="${product.basePrice}">Address</td>
             <td th:text="${product.salePrice}">500</td>
             <td th:text="${product.platform}">500</td>
-            <td><span th:each="style : ${product.gameStyle}" th:text="${style}"></span></td>
+            <td><span th:each="category : ${product.categories}" th:text="${category}"></span></td>
+            <td><a th:href="|/admin/products/${product.id}/update|"><i class="fas fa-edit"></i></a>
+                <a th:href="|/admin/products/${product.id}/delete|"><i class="fas fa-trash"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>

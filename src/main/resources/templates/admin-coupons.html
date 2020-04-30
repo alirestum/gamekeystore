@@ -9,7 +9,7 @@
 <div class="container text-center my-3">
     <h1>Coupons</h1>
     <div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
-    <div class="btn btn-primary my-1">Add new coupon</div>
+    <a href="/admin/coupons/addcoupon"><div class="btn btn-primary my-1">Add new coupon</div></a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -17,14 +17,18 @@
             <th>Discount amount:</th>
             <th>Expiration date:</th>
             <th>Times used:</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="coupon : ${couponsList}">
             <td th:text="${coupon.name}">Type</td>
             <td th:text="${coupon.discount}">Address</td>
-            <td th:text="${coupon.validUntil}">500</td>
-            <td th:text="${coupon.timesUsed}">500</td>
+            <td th:text="${#dates.format(coupon.validUntil, 'yyyy-MM-dd')}">500</td>
+            <td th:text="${coupon.getOrders().size()}">500</td>
+            <td><a th:href="|/admin/coupons/${coupon.id}/update|"><i class="fas fa-edit"></i></a>
+                <a th:href="|/admin/coupons/${coupon.id}/delete|"><i class="fas fa-trash"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>

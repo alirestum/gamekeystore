@@ -23,6 +23,10 @@ public class CouponService {
 
     public List<CouponEntity> findAll() { return couponRepository.findAll(); }
 
+    public void deleteOneById(Long id) { couponRepository.deleteById(id); }
+
+    public CouponEntity findById(Long id){ return couponRepository.findOneById(id); }
+
     @SneakyThrows
     public void createCouponEntity(CouponEntityDTO newCoupon){
         CouponEntity coupon = new CouponEntity();
@@ -30,5 +34,14 @@ public class CouponService {
         coupon.setName(newCoupon.getName());
         coupon.setValidUntil(new SimpleDateFormat("yyyy-MM-dd").parse(newCoupon.getValidUntil()).getTime());
         couponRepository.save(coupon);
+    }
+
+    @SneakyThrows
+    public void updateCouponById(Long id, CouponEntityDTO newCoupon){
+        CouponEntity managedCoupon = couponRepository.findOneById(id);
+        managedCoupon.setName(newCoupon.getName());
+        managedCoupon.setDiscount(newCoupon.getDiscount());
+        managedCoupon.setValidUntil(new SimpleDateFormat("yyyy-MM-dd").parse(newCoupon.getValidUntil()).getTime());
+        couponRepository.save(managedCoupon);
     }
 }

@@ -13,14 +13,14 @@
     <div class="navbar-items">
         <ul>
             <li>Categories</li>
-            <li>Products</li>
+            <li><a th:href="@{~/api/products}">Products</a></li>
             <li>Contact</li>
         </ul>
     </div>
     <div class="controls">
         <div class="navbar-items">
             <ul>
-                <li><i class="fas fa-shopping-cart "></i></li>
+                <li><a th:href="@{~/cart/}"><i id="cart-icon" class="fas fa-shopping-cart"></i></a></li>
                 <li><i class="fas fa-search"></i></li>
                 <li><i class="fas fa-user"></i></li>
             </ul>

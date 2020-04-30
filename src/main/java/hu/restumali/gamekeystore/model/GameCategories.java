@@ -1,6 +1,6 @@
 package hu.restumali.gamekeystore.model;
 
-public enum GameStyleType {
+public enum GameCategories {
     Action,
     Adventure,
     RPG,

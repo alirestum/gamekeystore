@@ -1,5 +1,8 @@
 package hu.restumali.gamekeystore.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,14 +14,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @Entity
 @Data
 @NoArgsConstructor
 @Table(name = "products")
 public class ProductEntity implements Serializable {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
 
     @NotEmpty(message = "Product must have a name!")
@@ -45,10 +51,13 @@ public class ProductEntity implements Serializable {
     @ElementCollection
     private List<String> imagesUrl;
 
-    @ElementCollection
-    private Set<GameStyleType> gameStyle;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "game_categories", joinColumns = @JoinColumn(name = "product_id"))
+    @Enumerated(EnumType.STRING)
+    private List<GameCategories> categories = new ArrayList<>();
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private PlatformType platform;
 
 }

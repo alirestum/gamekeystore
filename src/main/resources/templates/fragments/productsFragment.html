@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+</head>
+<body>
+<div class="col-10" th:fragment="productsList">
+    <div id="productsHeader">
+        <h3>Products</h3>
+        <div>
+            <span>Items per page:</span>
+            <select id="itemcnt">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="alert alert-success" role="alert">
+        Product successfully added to cart!
+    </div>
+    <div class="alert alert-danger" role="alert">
+        Failed to add product to cart!
+    </div>
+    <div class="products">
+        <div class="product" th:each="product : ${products}">
+            <img th:src="|/cnd/${product.featuredImageUrl}|" class="product-image">
+            <h4 class="product-title" th:text="${product.name}">Product title</h4>
+            <div class="sale-price" th:text="${product.salePrice}">Sale Price</div>
+            <div class="original-price" th:text="${product.basePrice}">Original price</div>
+            <div class="cartbutton-container">
+                <button class="btn btn-primary" th:attr="data-productId=${product.id}" onclick="addToCart(this)">In the
+                    cart
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -10,4 +10,6 @@ import java.util.List;
 public interface CouponRepository extends JpaRepository<CouponEntity, Long> {
 
     List<CouponEntity> findAll();
+
+    CouponEntity findOneById(Long id);
 }

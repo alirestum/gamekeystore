@@ -98,7 +98,7 @@ body{
     -webkit-border-radius: 9px;
     -moz-border-radius: 9px;
     border-radius: 9px;
-    content: '12';
+    content: attr(cart-counter number, 0);
 }
 
 /*
@@ -123,6 +123,11 @@ body{
 
 .admin-menu-item{
 
+}
+
+.admin-product-image{
+    height: 50px;
+    width: auto;
 }
 
 /*
@@ -170,4 +175,55 @@ body{
 .product-image{
     width: auto;
     height: 200px;
+}
+
+.alert-danger{
+    display: none;
+}
+
+.alert-success{
+    display: none;
+}
+
+#productsHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#itemcnt{
+    padding: 0.1em;
+}
+
+/*
+----------------  Cart ----------------
+*/
+
+.page-title{
+    text-align: center;
+}
+
+#cart-total{
+    text-align: left;
+}
+
+#cart-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coupon-field{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.coupon-field > * {
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+}
+
+.coupon-field label {
+    margin: 0;
 }

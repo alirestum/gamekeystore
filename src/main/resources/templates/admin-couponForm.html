@@ -8,7 +8,7 @@
 <div class="container text-center my-3">
     <h1>New coupon</h1>
     <div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
-    <form th:action="@{/admin/addcoupon}" th:object="${newCoupon}" method="post">
+    <form th:action="${url}" th:object="${newCoupon}" method="post">
 
         <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('name')}" th:text="${err}"></div>
         <div class="form-group">

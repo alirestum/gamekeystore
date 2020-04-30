@@ -30,11 +30,11 @@ public class CouponEntityDTO {
 
     public CouponEntityDTO(){}
 
-    public CouponEntityDTO(CouponEntity base, Integer timesUsed){
+    public CouponEntityDTO(CouponEntity base){
         this.id = base.getId();
         this.name = base.getName();
         this.discount = base.getDiscount();
         this.validUntil = base.getValidUntil().toString();
-        this.timesUsed = timesUsed;
+        this.timesUsed = base.getOrders().size();
     }
 }

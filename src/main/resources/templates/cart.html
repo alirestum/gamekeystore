@@ -3,10 +3,37 @@
 <head>
     <th:block th:include="/fragments/header.html :: header"></th:block>
     <title>Cart</title>
+    <script type="text/javascript" th:src="@{~/js/cart.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/top-bar.html :: contactbar"></div>
 <div th:replace="fragments/navbar.html :: navbar"></div>
-<h1>Cart</h1>
+<h1 class="page-title">Cart</h1>
+<div class="container text-center my-3">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Product price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cartItem : ${cartItems}">
+            <td th:text="${cartItem.product.name}">Type</td>
+            <td th:text="${cartItem.quantity}">500</td>
+            <td th:text="${cartItem.productSum}">Address</td>
+        </tr>
+        </tbody>
+    </table>
+    <div id="cart-footer">
+        <h3 id="cart-total" th:text="'Cart total:' + ${cartSum}"></h3>
+        <div class="coupon-field">
+            <label>Got a coupon? Add it here!</label>
+            <input type="text" placeholder="Enter coupon code!">
+            <button class="btn btn-primary">Check the code</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>
