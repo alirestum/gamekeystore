@@ -37,10 +37,16 @@ public class CartController {
         return "cart";
     }
 
-    @PostMapping("/addtocart")
+    @PostMapping(value = "/addtocart")
     public ResponseEntity<String> addToCart(@RequestParam Long productId){
         OrderItem orderItem = orderService.createOrderItem(productService.findById(productId));
         cartService.addToCart(orderItem);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/applycoupon")
+    public ResponseEntity<Integer> applyCoupon(@RequestParam String couponName){
+        Integer newSum = cartService.applyCoupon(couponName);
+        return new ResponseEntity<Integer>(newSum, HttpStatus.OK);
     }
 }

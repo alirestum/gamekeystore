@@ -28,6 +28,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
                                                                                                                                             List<GameCategories> categories2,
                                                                                                                                             Integer basePrice);
 
+
+
     //List<ProductEntity> filterByPriceAndPlatformAndCategory();
 
     ProductEntity findOneById(Long id);

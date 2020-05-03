@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,12 +22,10 @@ public class UserEntity implements Serializable {
     @Email(message = "Not a valid email address!")
     private String email;
 
-    @NotBlank(message = "Username is required")
-    @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters")
-    private String username;
+    private String firstName;
 
-    @NotBlank(message = "Password is required!")
-    @Size(min = 5, message = "Password must be at least 5 characters long!")
+    private String lastName;
+
     private String password;
 
     @Embedded
@@ -37,8 +34,8 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
 
-    @Enumerated(EnumType.ORDINAL)
-    private UserRoleTypes role;
+    @Enumerated(EnumType.STRING)
+    private UserRoleType role;
 
 
 }

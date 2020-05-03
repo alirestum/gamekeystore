@@ -22,7 +22,8 @@
             <ul>
                 <li><a th:href="@{~/cart/}"><i id="cart-icon" class="fas fa-shopping-cart"></i></a></li>
                 <li><i class="fas fa-search"></i></li>
-                <li><i class="fas fa-user"></i></li>
+                <li th:if="${session.firstName == null}"><a th:href="@{~/user/login}"><i class="fas fa-user"></i></a></li>
+                <li th:if="${session.firstName != null}"><a th:href="@{~/user/profile}"><span th:text="${session.firstName + ' ' + session.lastName}"></span></a></li>
             </ul>
         </div>
     </div>

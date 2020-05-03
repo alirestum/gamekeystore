@@ -27,13 +27,16 @@
         </tbody>
     </table>
     <div id="cart-footer">
-        <h3 id="cart-total" th:text="'Cart total:' + ${cartSum}"></h3>
+        <h3 id="cart-total" th:text="'Cart total: ' + ${cartSum}"></h3>
         <div class="coupon-field">
             <label>Got a coupon? Add it here!</label>
-            <input type="text" placeholder="Enter coupon code!">
-            <button class="btn btn-primary">Check the code</button>
+            <input id="coupon-code" type="text" placeholder="Enter coupon code!">
+            <button class="btn btn-primary" onclick="applyCoupon()">Check the code</button>
         </div>
     </div>
+    <form th:action="@{~/checkout}" method="get">
+        <button class="btn btn-primary">Place order</button>
+    </form>
 </div>
 </body>
 </html>

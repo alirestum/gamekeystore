@@ -1,6 +1,6 @@
 package hu.restumali.gamekeystore.model;
 
-public enum UserRoleTypes {
+public enum UserRoleType {
     Customer,
     WebshopAdmin
 }

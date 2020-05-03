@@ -3,9 +3,13 @@ package hu.restumali.gamekeystore.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Data
 @NoArgsConstructor
@@ -13,16 +17,17 @@ import javax.validation.constraints.NotBlank;
 @Embeddable
 public class Address {
 
-    @NotBlank(message = "Country is required!")
+    @NotEmpty(message = "Country is required!")
     private String country;
 
-    @NotBlank(message = "State is required!")
+    @NotEmpty(message = "State is required!")
     private String state;
 
-    @NotBlank(message = "Street is required!")
+    @NotEmpty(message = "Street is required!")
     private String street;
 
-    @NotBlank(message = "Number is required!")
+    @NotNull(message = "Number is required!")
+    @Positive(message = "Number can't be negative!")
     private Integer number;
 
     private String extra;

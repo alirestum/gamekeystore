@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+    <title>Cart</title>
+    <script type="text/javascript" th:src="@{~/js/cart.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/top-bar.html :: contactbar"></div>
+<div th:replace="fragments/navbar.html :: navbar"></div>
+<h1 class="page-title">Profile</h1>
+<div class="container text-center">
+    <button class="btn btn-primary" th:href="@{~/user/orders}">View orders</button>
+    <button class="btn btn-primary" th:href="@{~/user/pwdchange}">Change password</button>
+    <h3>Change address</h3>
+    <form th:action="@{~/user/profile}" method="post" th:object="${address}">
+        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('country')}" th:text="${err}"></div>
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" class="form-control" th:field="*{country}" placeholder="Enter country" >
+        </div>
+
+        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('state')}" th:text="${err}"></div>
+        <div class="form-group">
+            <label>State</label>
+            <input type="text" class="form-control" th:field="*{state}" placeholder="Enter state">
+        </div>
+
+        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('street')}" th:value="${err}"></div>
+        <div class="form-group">
+            <label>Street</label>
+            <input type="text" class="form-control" th:field="*{street}" placeholder="Enter street">
+        </div>
+
+        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('number')}" th:text="${err}"></div>
+        <div class="form-group">
+            <label>Number</label>
+            <input type="text" class="form-control" th:field="*{number}" placeholder="Enter number">
+        </div>
+        <div class="form-group">
+            <label>Extra details</label>
+            <input type="text" class="form-control" th:field="*{extra}" placeholder="Enter extra details">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save address details</button>
+    </form>
+</div>
+</body>
+</html>
