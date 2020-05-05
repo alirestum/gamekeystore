@@ -4,38 +4,74 @@
     <th:block th:include="/fragments/header.html :: header"></th:block>
 </head>
 <body>
-<div class="col-10" th:fragment="productsList">
+<div class="row" th:fragment="productsList">
+<div class="col-10">
     <div id="productsHeader">
         <h3>Products</h3>
         <div>
             <span>Items per page:</span>
-            <select id="itemcnt">
+            <select id="itemcnt" onchange="itemsPerPage(this)">
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
             </select>
         </div>
     </div>
-
-    <div class="alert alert-success" role="alert">
-        Product successfully added to cart!
-    </div>
-    <div class="alert alert-danger" role="alert">
-        Failed to add product to cart!
-    </div>
+    <div class="cart-success cart-success-hidden">Product successfully added to the cart!</div>
     <div class="products">
         <div class="product" th:each="product : ${products}">
+            <div class="product-hover">
+                <div class="hover-text" th:attr="data-productId=${product.id}" onclick="addToCart(this)">Add to cart</div>
+            </div>
             <img th:src="|/cnd/${product.featuredImageUrl}|" class="product-image">
-            <h4 class="product-title" th:text="${product.name}">Product title</h4>
-            <div class="sale-price" th:text="${product.salePrice}">Sale Price</div>
-            <div class="original-price" th:text="${product.basePrice}">Original price</div>
-            <div class="cartbutton-container">
+            <a th:href="@{'~/api/products/' + ${product.id}}"><h6 class="product-title" th:text="${product.name}">Product title</h6></a>
+            <div class="price">
+                <div th:text="${product.basePrice} +'Ft'" th:classappend="${product.salePrice} == null ? 'sale-price' : 'original-price'">Original price</div>
+                <div class="sale-price"  th:if="${product.salePrice} != null" th:text="${product.salePrice} + 'Ft'">Sale Price</div>
+            </div>
+          <!--  <div class="cartbutton-container">
                 <button class="btn btn-primary" th:attr="data-productId=${product.id}" onclick="addToCart(this)">In the
                     cart
                 </button>
-            </div>
+            </div>-->
+
         </div>
+
     </div>
+    <nav class="pagination-nav">
+        <ul class="pagination">
+            <li class="page-item" th:each="page : ${pages}" th:id="${page}" th:classappend="${page} == ${currentPage} ? active" onclick="paginate(this)">
+                <a class="page-link" th:text="${page}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="col-2 p-0">
+    <div class="filter">
+        <h3>Filter Products</h3>
+        <form id="filter" onchange="filter(10, 0)">
+            <div class="form-group">
+                <label>Maximum Price:</label>
+                <input id="priceFilter" type="range" min="0" max="30000" step="1000" value="30000" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="w-100">Categories:</label>
+                <div class="form-check" th:each="category : ${categories}">
+                    <input class="form-check-input" type="checkbox" th:value="${category}">
+                    <label class="form-check-label w-100" th:text="${category}"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="w-100">Platform:</label>
+                <div>
+                    <select id="platformFilter">
+                        <option th:each="platform: ${platformTypes}" th:value="${platform}" th:text="${platform}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </div>
 </body>
 </html>

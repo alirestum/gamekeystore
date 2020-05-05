@@ -2,6 +2,7 @@ package hu.restumali.gamekeystore.service;
 
 import hu.restumali.gamekeystore.model.GameCategories;
 import hu.restumali.gamekeystore.model.PlatformType;
+import hu.restumali.gamekeystore.model.ProductAvailabilityType;
 import hu.restumali.gamekeystore.model.ProductEntity;
 import hu.restumali.gamekeystore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,11 +36,17 @@ public class ProductService {
         return productRepository.findAllByCategoriesIn(categories);
     }
 
-    public List<ProductEntity> filter(List<PlatformType> platform, List<GameCategories> categories, Integer price){
+    public Page<ProductEntity> filter(List<PlatformType> platforms, List<GameCategories> categories, Integer maxPrice, Pageable pageable){
         return productRepository
-                .findAllByPlatformInAndCategoriesInAndSalePriceIsLessThanEqualOrPlatformInAndCategoriesInAndBasePriceIsLessThanEqual(platform,
-                        categories, price, platform, categories, price);
+                .findAllByPlatformInAndCategoriesInAndSalePriceIsLessThanEqualAndAvailabilityOrPlatformInAndCategoriesInAndBasePriceIsLessThanEqualAndAvailability(platforms,
+                        categories, maxPrice, ProductAvailabilityType.InStock, platforms, categories, maxPrice, ProductAvailabilityType.InStock, pageable);
+
+
     }
+
+/*    public Map<String, Object> createResponseForProductsPage(){
+
+    }*/
 
     public void updateProductById(Long id, ProductEntity product){
         ProductEntity managedProduct = productRepository.findOneById(id);
@@ -62,5 +70,9 @@ public class ProductService {
                 maxValue = product.getBasePrice();
         }
         return maxValue;
+    }
+
+    public Page<ProductEntity> getByAvailabilityWithPages(Pageable pageable){
+        return productRepository.findAllByAvailability(pageable, ProductAvailabilityType.InStock);
     }
 }

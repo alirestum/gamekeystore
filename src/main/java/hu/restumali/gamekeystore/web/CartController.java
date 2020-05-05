@@ -1,5 +1,6 @@
 package hu.restumali.gamekeystore.web;
 
+import hu.restumali.gamekeystore.config.CouponNotFoundException;
 import hu.restumali.gamekeystore.model.OrderItem;
 import hu.restumali.gamekeystore.model.ProductEntity;
 import hu.restumali.gamekeystore.service.CartService;
@@ -45,8 +46,17 @@ public class CartController {
     }
 
     @PostMapping(value = "/applycoupon")
-    public ResponseEntity<Integer> applyCoupon(@RequestParam String couponName){
-        Integer newSum = cartService.applyCoupon(couponName);
-        return new ResponseEntity<Integer>(newSum, HttpStatus.OK);
+    public ResponseEntity<Object> applyCoupon(@RequestParam String couponName){
+        if (cartService.getCoupon() == null){
+            Integer newSum;
+            try {
+                newSum = cartService.applyCoupon(couponName);
+            } catch (CouponNotFoundException e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(newSum, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Coupon already applied!", HttpStatus.BAD_REQUEST);
+        }
     }
 }

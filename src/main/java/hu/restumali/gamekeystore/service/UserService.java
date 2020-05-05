@@ -1,9 +1,6 @@
 package hu.restumali.gamekeystore.service;
 
-import hu.restumali.gamekeystore.model.Address;
-import hu.restumali.gamekeystore.model.UserDTO;
-import hu.restumali.gamekeystore.model.UserEntity;
-import hu.restumali.gamekeystore.model.UserRoleType;
+import hu.restumali.gamekeystore.model.*;
 import hu.restumali.gamekeystore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +40,12 @@ public class UserService {
     public void updateUserAddress(String userName, Address address){
         UserEntity managedUser = userRepository.findByEmail(userName);
         managedUser.setAddress(address);
+        userRepository.save(managedUser);
+    }
+
+    public void addOrderToUser(String userName, OrderEntity order){
+        UserEntity managedUser = userRepository.findByEmail(userName);
+        managedUser.getOrders().add(order);
         userRepository.save(managedUser);
     }
 }

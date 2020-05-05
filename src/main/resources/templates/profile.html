@@ -10,7 +10,7 @@
 <div th:replace="fragments/navbar.html :: navbar"></div>
 <h1 class="page-title">Profile</h1>
 <div class="container text-center">
-    <button class="btn btn-primary" th:href="@{~/user/orders}">View orders</button>
+    <a th:href="@{~/user/orders}"><button class="btn btn-primary">View orders</button></a>
     <button class="btn btn-primary" th:href="@{~/user/pwdchange}">Change password</button>
     <h3>Change address</h3>
     <form th:action="@{~/user/profile}" method="post" th:object="${address}">

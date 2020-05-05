@@ -46,7 +46,9 @@
 </th:block>
 <h3 th:text="'Order total: ' + ${orderTotal}"></h3>
     <span>Make sure your billing address is up to date! You can check it in the profile menu.</span>
-<button class="btn btn-primary">Place order</button>
+    <form th:action="@{~/checkout}" method="post">
+        <button class="btn btn-primary">Place order</button>
+    </form>
 </div>
 </body>
 </html>

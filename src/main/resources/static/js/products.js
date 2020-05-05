@@ -4,6 +4,10 @@ async function addToCart(button) {
     xhr.open('POST', '/cart/addtocart?productId=' + productId, true);
     xhr.send();
     updateCartCounter();
+    document.getElementsByClassName('cart-success')[0].classList.remove('cart-success-hidden');
+    setTimeout(() =>{
+        document.getElementsByClassName('cart-success')[0].classList.add('cart-success-hidden');
+    }, 5000);
 }
 
 function updateCartCounter() {
@@ -12,8 +16,9 @@ function updateCartCounter() {
     cart.setAttribute('cart-counter', current++);
 }
 
-function filter(form) {
-    let categoryCheckBoxes = form.getElementsByClassName('form-check-input');
+async function filter(size, page) {
+    let filterForm = document.getElementById('filter');
+    let categoryCheckBoxes = filterForm.getElementsByClassName('form-check-input');
     let categories = [];
     let parser = new DOMParser();
     for (let item of categoryCheckBoxes){
@@ -23,13 +28,42 @@ function filter(form) {
     }
     let maxPrice = document.getElementById('priceFilter').value;
     let platform = document.getElementById('platformFilter').value;
-    let requestParam = '?platform=' + platform + '&maxprice=' + maxPrice + '&categories=' + categories;
+    let itemCnt = document.getElementById('itemcnt').value;
+    let requestParam = '?platform=' + platform + '&maxprice=' + maxPrice + '&categories=' + categories
+        + '&page=' + page + '&size=' + itemCnt;
     fetch('/api/products/filter' + requestParam).then((response) =>{
        return response.text();
     }).then((html) => {
         let resHtml = parser.parseFromString(html, 'text/html');
-        document.getElementsByClassName('products')[0].innerHTML =
-            resHtml.getElementsByClassName('products')[0].innerHTML;
+        document.getElementsByClassName('products-container')[0].innerHTML =
+            resHtml.getElementsByClassName('row')[0].outerHTML;
+
+        filterForm = document.getElementById('filter');
+        categoryCheckBoxes = filterForm.getElementsByClassName('form-check-input');
+        for (let item of categoryCheckBoxes){
+            if (categories.includes(item.value)){
+                item.checked = true;
+            }
+        }
+        document.getElementById('priceFilter').value = maxPrice;
+        document.getElementById('platformFilter').value = platform;
+        document.getElementById('itemcnt').value = itemCnt;
+        window.scrollTo({
+            behavior: "smooth",
+            left: 0,
+            top: html
+        });
     });
-    console.log(requestParam);
+}
+
+async function paginate(page) {
+    let pageNumber = page.id;
+    let pageSize = document.getElementById('itemcnt').value;
+    await filter(pageSize, pageNumber);
+}
+
+async function itemsPerPage(select) {
+    let itemCnt = select.value;
+    await filter(itemCnt, 0);
+    document.getElementById('itemcnt').value = itemCnt;
 }

@@ -6,13 +6,12 @@
 <body>
 <nav th:fragment="navbar" class="navbar1">
 <div class="navbar-container">
-    <div class="navbar-brand1">
+    <a th:href="@{~/}"><div class="navbar-brand1">
         <h3>Gamekeystore</h3>
         <span>Jatekok olcsobban</span>
-    </div>
+    </div></a>
     <div class="navbar-items">
         <ul>
-            <li>Categories</li>
             <li><a th:href="@{~/api/products}">Products</a></li>
             <li>Contact</li>
         </ul>

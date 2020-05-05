@@ -1,5 +1,6 @@
 package hu.restumali.gamekeystore.service;
 
+import hu.restumali.gamekeystore.config.CouponNotFoundException;
 import hu.restumali.gamekeystore.model.CouponEntity;
 import hu.restumali.gamekeystore.model.OrderItem;
 import hu.restumali.gamekeystore.repository.CouponRepository;
@@ -43,8 +44,10 @@ public class CartService {
         this.cartSum -= orderItem.getProductSum();
     }
 
-    public Integer applyCoupon(String name){
+    public Integer applyCoupon(String name) throws CouponNotFoundException{
         this.coupon = couponRepository.findOneByName(name);
+        if (this.coupon == null)
+            throw new CouponNotFoundException("Coupon not found with name " + name);
         this.cartSum -= this.coupon.getDiscount();
         return this.cartSum;
     }

@@ -3,18 +3,17 @@ package hu.restumali.gamekeystore.web;
 import hu.restumali.gamekeystore.model.Address;
 import hu.restumali.gamekeystore.model.UserDTO;
 import hu.restumali.gamekeystore.model.UserEntity;
+import hu.restumali.gamekeystore.service.OrderService;
 import hu.restumali.gamekeystore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.Map;
-import java.util.Optional;
 
 @RequestMapping(value = "/user")
 @Controller
@@ -22,6 +21,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    OrderService orderService;
 
     @GetMapping(value = "/profile")
     public String profile(Map<String, Object> map){
@@ -78,6 +80,12 @@ public class UserController {
     @GetMapping(value = "/login")
     public String login(){
         return "user-Login";
+    }
+
+    @GetMapping(value = "/orders")
+    public String orders(Map<String, Object> map){
+        map.put("orders", orderService.getOrdersByUser(SecurityContextHolder.getContext().getAuthentication().getName()));
+        return "user-Orders";
     }
 
 }
