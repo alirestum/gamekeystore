@@ -59,4 +59,18 @@ public class CartController {
             return new ResponseEntity<>("Coupon already applied!", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping(value = "updatecount")
+    public ResponseEntity<Object> updateCount(@RequestParam("id") Long id){
+        cartService.updateItemCount(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "removeitem")
+    public String removeItemFromCart(@RequestParam("id") Long id, Map<String, Object> map){
+        cartService.removeFromCart(id);
+        map.put("cartItems", cartService.getItems());
+        map.put("cartSum", cartService.getCartSum());
+        return "cart";
+    }
 }

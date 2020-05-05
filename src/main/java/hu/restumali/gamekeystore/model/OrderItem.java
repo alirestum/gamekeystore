@@ -26,4 +26,9 @@ public class OrderItem {
         this.quantity = quantity;
         this.productSum = quantity * this.product.getSalePrice();
     }
+
+    public void increaseQuantity(){
+        this.quantity++;
+        this.productSum = this.quantity * this.product.getSalePrice();
+    }
 }

@@ -21,7 +21,8 @@
     <div class="products">
         <div class="product" th:each="product : ${products}">
             <div class="product-hover">
-                <div class="hover-text" th:attr="data-productId=${product.id}" onclick="addToCart(this)">Add to cart</div>
+                <div class="hover-text"><a th:href="@{'~/api/products/' + ${product.id}}"><i class="fas fa-eye fa-2x"></i></a></div>
+                <div class="hover-text" th:attr="data-productId=${product.id}" onclick="addToCart(this)"><a>Add to cart</a></div>
             </div>
             <img th:src="|/cnd/${product.featuredImageUrl}|" class="product-image">
             <a th:href="@{'~/api/products/' + ${product.id}}"><h6 class="product-title" th:text="${product.name}">Product title</h6></a>

@@ -23,9 +23,9 @@
         <tr th:each="cartItem : ${cartItems}">
             <td th:text="${cartItem.product.name}">Type</td>
 
-            <td><input style="width: 50px" type="number" th:name="${cartItem.product.name}" min="1" step="1" th:value="${cartItem.quantity}" onchange="updateCount(this)"></td>
+            <td><input style="width: 50px" type="number" th:name="${cartItem.product.id}" min="1" step="1" th:value="${cartItem.quantity}" onchange="updateCount(this)" onkeydown="return false"></td>
             <td th:text="${cartItem.productSum}">Address</td>
-            <td><i class="fas fa-minus" style="color: darkred" th:name="${cartItem.product.name}" onclick="removeFromCart(this)"></i></td>
+            <td><a th:href="@{~/cart/removeitem(id=${cartItem.product.id})}"><i class="fas fa-minus" style="color: darkred" onclick="removeFromCart(this)"></i></a></td>
         </tr>
         </tbody>
     </table>

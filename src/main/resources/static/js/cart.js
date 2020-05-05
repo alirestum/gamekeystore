@@ -22,10 +22,8 @@ async function applyCoupon() {
     });
 }
 
-function updateCount(input){
-
-}
-
-function removeFromCart(element) {
-
+async function updateCount(input){
+    let id = input.value;
+    let url = '/cart/updatecount?id=' + id;
+    await fetch(url, {method: 'post'});
 }
