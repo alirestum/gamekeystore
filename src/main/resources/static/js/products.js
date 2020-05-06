@@ -67,3 +67,28 @@ async function itemsPerPage(select) {
     await filter(itemCnt, 0);
     document.getElementById('itemcnt').value = itemCnt;
 }
+
+async function searchProducts(element) {
+    if (element.value.length !== 0 )
+        document.getElementsByClassName('search')[0].innerHTML = '';
+
+    if (element.value.length < 2)
+        return false;
+
+    let parser = new DOMParser();
+    let param = element.value;
+    let url = '/api/products/search?name=' + param;
+    fetch(url, {method: 'post'}).then((response) => {
+       return response.text()
+    }).then((html) =>{
+        let resHtml = parser.parseFromString(html,'text/html');
+        document.getElementsByClassName('search')[0].innerHTML =
+            resHtml.getElementsByClassName('table')[0].outerHTML;
+
+        let names = document.getElementsByClassName('product-search-name');
+        let pattern = new RegExp(param, 'gi');
+        for (let name of names){
+            name.innerHTML = name.innerText.replace(pattern, param.bold().italics());
+        }
+    });
+}

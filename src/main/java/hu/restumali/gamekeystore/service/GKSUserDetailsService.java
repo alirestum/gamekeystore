@@ -1,6 +1,7 @@
 package hu.restumali.gamekeystore.service;
 
 import hu.restumali.gamekeystore.model.UserEntity;
+import hu.restumali.gamekeystore.model.UserRoleType;
 import hu.restumali.gamekeystore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,10 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GKSUserDetailsService implements UserDetailsService {
@@ -29,7 +27,11 @@ public class GKSUserDetailsService implements UserDetailsService {
         return new UserDetails() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
+                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                for (UserRoleType role : user.getRole()){
+                    authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+                }
+                return authorities;
             }
 
             @Override

@@ -130,49 +130,6 @@ a:hover {
     content: attr(cart-counter number);
 }
 
-.searchLi{
-    display: flex;
-}
-
-.searchInput{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 42.5px;
-    line-height: 30px;
-    outline: 0;
-    border: 0;
-    display: none;
-    font-size: 1em;
-    border-radius: 20px;
-    padding: 0 20px;
-}
-
-.searchForm{
-    transform: translate(-50%,-50%);
-    transition: all 1s;
-    width: 0px;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    background: white;
-    border-radius: 25px;
-    border: 4px solid white;
-    padding: 5px;
-}
-
-.searchForm:hover .searchInput{
-    display: block;
-    border: 2px solid #1b1e21;
-}
-
-.searchForm:hover{
-    width: 200px;
-    cursor: pointer;
-
-}
-
 /*
 ----------------  Admin --------------
 */
@@ -230,8 +187,10 @@ a:hover {
     transition: .5s ease;
     opacity: 0;
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     align-items: flex-end;
+    align-content: flex-end;
+    justify-content: flex-end;
 }
 
 .product:hover .product-hover {
@@ -252,7 +211,6 @@ a:hover {
     border: 3px solid white;
     text-align: center;
     transition: .5s ease;
-    display: block;
     opacity: 1;
     user-select: none;
 }
@@ -386,4 +344,10 @@ a:hover {
 
 .description {
 
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
 }

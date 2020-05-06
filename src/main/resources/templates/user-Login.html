@@ -8,7 +8,8 @@
 <body>
 <div th:replace="fragments/top-bar.html :: contactbar"></div>
 <div th:replace="fragments/navbar.html :: navbar"></div>
-<div class="container text-center">
+<div class="container text-left">
+    <h1 class="page-title">Login</h1>
     <form th:action="@{~/user/login}" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -20,6 +21,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <a th:href="@{~/user/register}">Don't have an account? Create one here!</a>
 </div>
 </body>
 </html>

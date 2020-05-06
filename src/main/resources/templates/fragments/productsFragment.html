@@ -42,7 +42,7 @@
     <nav class="pagination-nav">
         <ul class="pagination">
             <li class="page-item" th:each="page : ${pages}" th:id="${page}" th:classappend="${page} == ${currentPage} ? active" onclick="paginate(this)">
-                <a class="page-link" th:text="${page}"></a>
+                <a class="page-link" th:text="${pageStat.count}"></a>
             </li>
         </ul>
     </nav>

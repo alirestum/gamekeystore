@@ -34,6 +34,8 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     Page<ProductEntity> findAllByAvailability(Pageable pageable, ProductAvailabilityType availability);
 
+    List<ProductEntity> findTop5ByNameIsLikeIgnoreCase(String name);
+
     //List<ProductEntity> filterByPriceAndPlatformAndCategory();
 
     ProductEntity findOneById(Long id);

@@ -31,4 +31,9 @@ public class Address {
     private Integer number;
 
     private String extra;
+
+    @Override
+    public String toString() {
+        return country + ", " + state + ", " + street + ", " + number;
+    }
 }

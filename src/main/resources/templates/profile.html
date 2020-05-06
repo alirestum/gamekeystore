@@ -12,6 +12,7 @@
 <div class="container text-center">
     <a th:href="@{~/user/orders}"><button class="btn btn-primary">View orders</button></a>
     <button class="btn btn-primary" th:href="@{~/user/pwdchange}">Change password</button>
+    <a th:href="@{~/user/logout}"><button class="btn btn-primary">Logout</button></a>
     <h3>Change address</h3>
     <form th:action="@{~/user/profile}" method="post" th:object="${address}">
         <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('country')}" th:text="${err}"></div>

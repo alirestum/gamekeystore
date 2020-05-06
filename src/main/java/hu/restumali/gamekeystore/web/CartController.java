@@ -1,8 +1,7 @@
 package hu.restumali.gamekeystore.web;
 
-import hu.restumali.gamekeystore.config.CouponNotFoundException;
+import hu.restumali.gamekeystore.config.CouponException;
 import hu.restumali.gamekeystore.model.OrderItem;
-import hu.restumali.gamekeystore.model.ProductEntity;
 import hu.restumali.gamekeystore.service.CartService;
 import hu.restumali.gamekeystore.service.OrderService;
 import hu.restumali.gamekeystore.service.ProductService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -51,7 +49,7 @@ public class CartController {
             Integer newSum;
             try {
                 newSum = cartService.applyCoupon(couponName);
-            } catch (CouponNotFoundException e) {
+            } catch (CouponException e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>(newSum, HttpStatus.OK);

@@ -24,11 +24,19 @@ public class OrderItem {
 
     public void setQuantity(int quantity){
         this.quantity = quantity;
-        this.productSum = quantity * this.product.getSalePrice();
+        this.productSum = quantity * (this.product.getSalePrice() == null ? this.product.getBasePrice() : this.product.getSalePrice());
     }
 
     public void increaseQuantity(){
         this.quantity++;
-        this.productSum = this.quantity * this.product.getSalePrice();
+        this.productSum = this.quantity * (this.product.getSalePrice() == null ? this.product.getBasePrice() : this.product.getSalePrice());
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "product=" + product +
+                ", quantity=" + quantity +
+                '}';
     }
 }

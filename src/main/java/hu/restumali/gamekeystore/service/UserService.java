@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+
 @Service
 @Transactional
 public class UserService {
@@ -25,7 +27,7 @@ public class UserService {
             user.setLastName(userDTO.getLastName());
             user.setEmail(userDTO.getEmail());
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            user.setRole(UserRoleType.Customer);
+            user.setRole(Arrays.asList(UserRoleType.Customer));
             userRepository.save(user);
         }
 
@@ -46,6 +48,12 @@ public class UserService {
     public void addOrderToUser(String userName, OrderEntity order){
         UserEntity managedUser = userRepository.findByEmail(userName);
         managedUser.getOrders().add(order);
+        userRepository.save(managedUser);
+    }
+
+    public void giveAdmin(String userName){
+        UserEntity managedUser = userRepository.findByEmail(userName);
+        managedUser.getRole().add(UserRoleType.WebshopAdmin);
         userRepository.save(managedUser);
     }
 }

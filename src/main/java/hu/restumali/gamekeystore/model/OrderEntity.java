@@ -7,6 +7,7 @@ import org.hibernate.annotations.Sort;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class OrderEntity implements Serializable {
 
     private OrderStatusType status;
 
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
     private Integer orderSum;
 
@@ -39,11 +40,6 @@ public class OrderEntity implements Serializable {
     @OrderBy("product.name")
     private List<OrderItem> items;
 
-
-
-
-
-
-
-
+    @Embedded
+    private Address billingAddress;
 }

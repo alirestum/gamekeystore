@@ -8,39 +8,46 @@
 <body>
 <div th:replace="fragments/top-bar.html :: contactbar"></div>
 <div th:replace="fragments/navbar.html :: navbar"></div>
-<h1 th:text="#{label.form.title}">form</h1>
+<div class="container text-left">
+    <h1 class="page-title">Register</h1>
 <form th:action="@{~/user/register}" th:object="${user}" method="POST" enctype="utf8">
-    <div>
-        <label th:text="#{label.user.firstName}">first</label>
-        <input th:field="*{firstName}"/>
+    <div class="alert alert-danger" th:each="err: ${#fields.errors('firstName')}" th:text="${err}"></div>
+    <div class="form-group">
+        <label>First name:</label>
+        <input class="form-control" th:field="*{firstName}"/>
         <p th:each="error: ${#fields.errors('firstName')}"
            th:text="${error}">Validation error</p>
     </div>
-    <div>
-        <label th:text="#{label.user.lastName}">last</label>
-        <input th:field="*{lastName}"/>
+    <div class="alert alert-danger" th:each="err: ${#fields.errors('lastName')}" th:text="${err}"></div>
+    <div class="form-group">
+        <label>Last name: </label>
+        <input class="form-control" th:field="*{lastName}"/>
         <p th:each="error : ${#fields.errors('lastName')}"
            th:text="${error}">Validation error</p>
     </div>
-    <div>
-        <label th:text="#{label.user.email}">email</label>
-        <input type="email" th:field="*{email}"/>
+    <div class="alert alert-danger" th:each="err: ${#fields.errors('email')}" th:text="${err}"></div>
+    <div class="form-group">
+        <label>Email address: </label>
+        <input class="form-control" type="email" th:field="*{email}"/>
         <p th:each="error : ${#fields.errors('email')}"
            th:text="${error}">Validation error</p>
     </div>
-    <div>
-        <label th:text="#{label.user.password}">password</label>
-        <input type="password" th:field="*{password}"/>
+    <div class="alert alert-danger" th:each="err: ${#fields.errors('password')}" th:text="${err}"></div>
+    <div class="form-group">
+        <label>Password: </label>
+        <input class="form-control" type="password" th:field="*{password}"/>
         <p th:each="error : ${#fields.errors('password')}"
            th:text="${error}">Validation error</p>
     </div>
-    <div>
-        <label th:text="#{label.user.confirmPass}">confirm</label>
-        <input type="password" th:field="*{passwordConfirm}"/>
+    <div class="alert alert-danger" th:each="err: ${#fields.errors('passwordConfirm')}" th:text="${err}"></div>
+    <div class="form-group">
+        <label>Password confirmation: </label>
+        <input class="form-control" type="password" th:field="*{passwordConfirm}"/>
     </div>
-    <button type="submit" th:text="#{label.form.submit}">submit</button>
+    <button type="submit" class="btn btn-primary text-center">Create account</button>
 </form>
 
-<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>
+<a th:href="@{~/user/login}">Already have an account? Log in here!</a>
+</div>
 </body>
 </html>

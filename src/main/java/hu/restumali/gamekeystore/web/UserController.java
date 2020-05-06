@@ -3,9 +3,11 @@ package hu.restumali.gamekeystore.web;
 import hu.restumali.gamekeystore.model.Address;
 import hu.restumali.gamekeystore.model.UserDTO;
 import hu.restumali.gamekeystore.model.UserEntity;
+import hu.restumali.gamekeystore.model.UserRoleType;
 import hu.restumali.gamekeystore.service.OrderService;
 import hu.restumali.gamekeystore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,6 +37,8 @@ public class UserController {
         return "profile";
     }
 
+
+    @PreAuthorize("hasRole('ROLE_Customer') or hasAnyRole('ROLE_WebshopAdmin')")
     @PostMapping(value = "/profile")
     public String profile(Map<String, Object> map,
                           @Valid Address address,
@@ -63,16 +67,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/register")
-    public String register(Map<String, Object> map,
-                           @Valid UserDTO newUser,
+    public String register(@Valid UserDTO newUser,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes){
         if (!bindingResult.hasErrors()){
             userService.registerNewUser(newUser);
             return "redirect:/";
         } else{
-            redirectAttributes.addFlashAttribute("newProduct", newUser);
-            redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "newUser", bindingResult);
+            redirectAttributes.addFlashAttribute("user", newUser);
+            redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "user", bindingResult);
             return "redirect:/user/register";
         }
     }
@@ -82,6 +85,8 @@ public class UserController {
         return "user-Login";
     }
 
+
+    @PreAuthorize("hasAnyRole('Customer', 'WebshopAdmin')")
     @GetMapping(value = "/orders")
     public String orders(Map<String, Object> map){
         map.put("orders", orderService.getOrdersByUser(SecurityContextHolder.getContext().getAuthentication().getName()));

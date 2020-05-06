@@ -1,9 +1,6 @@
 package hu.restumali.gamekeystore.service;
 
-import hu.restumali.gamekeystore.model.GameCategories;
-import hu.restumali.gamekeystore.model.PlatformType;
-import hu.restumali.gamekeystore.model.ProductAvailabilityType;
-import hu.restumali.gamekeystore.model.ProductEntity;
+import hu.restumali.gamekeystore.model.*;
 import hu.restumali.gamekeystore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,9 +40,9 @@ public class ProductService {
 
     }
 
-/*    public Map<String, Object> createResponseForProductsPage(){
-
-    }*/
+    public List<ProductEntity> searchByName(String name){
+        return  productRepository.findTop5ByNameIsLikeIgnoreCase(name);
+    }
 
     public void updateProductById(Long id, ProductEntity product){
         ProductEntity managedProduct = productRepository.findOneById(id);

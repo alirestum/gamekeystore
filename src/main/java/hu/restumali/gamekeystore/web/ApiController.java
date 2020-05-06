@@ -1,17 +1,20 @@
 package hu.restumali.gamekeystore.web;
 
-import hu.restumali.gamekeystore.model.GameCategories;
-import hu.restumali.gamekeystore.model.PlatformType;
-import hu.restumali.gamekeystore.model.ProductAvailabilityType;
-import hu.restumali.gamekeystore.model.ProductEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import hu.restumali.gamekeystore.model.*;
 import hu.restumali.gamekeystore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -67,6 +70,19 @@ public class ApiController {
         return "productDetails";
     }
 
+    @GetMapping(value = "products/search")
+    public String searchProducts(){
+        return "productsSearch";
+    }
+
+    @PostMapping(value = "/products/search")
+    public String searchProducts(@RequestParam("name") String name,
+                                                 Map<String, Object> map){
+        List<ProductEntity> products = productService.searchByName("%" + name + "%");
+        map.put("products", products);
+        return "/fragments/searchFragment :: searchResult";
+    }
+
     private void createMapForFilter(@RequestParam("maxprice") Integer maxPrice, Pageable pageable, Map<String, Object> map, List<PlatformType> platforms, List<GameCategories> gameCategories) {
         Page<ProductEntity> products = productService.filter(platforms, gameCategories, maxPrice, pageable);
         List<Integer> pageNum = new ArrayList<>();
@@ -80,6 +96,8 @@ public class ApiController {
         map.put("platformTypes", EnumSet.allOf(PlatformType.class));
         map.put("maxPrice", productService.highestPrice());
     }
+
+
 
 
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+</head>
+<body>
+<div >
+    <table class="table table-striped" th:fragment="searchResult">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td><img th:src="|/cnd/${product.featuredImageUrl}|" class="admin-product-image"></td>
+            <td ><a th:href="@{~/api/products/{id}(id=${product.id})}" th:text="${product.name}" class="product-search-name"></a></td>
+            <td th:text="${product.salePrice == null ? product.basePrice : product.salePrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

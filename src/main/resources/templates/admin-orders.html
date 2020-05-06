@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:include="fragments/header.html :: header"></th:block>
+</head>
+<body>
+<div class="container text-center my-3">
+    <h1>Orders</h1>
+    <div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Billing address</th>
+            <th>Sum</th>
+            <th>Products</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.status}">Type</td>
+            <td th:text="${order.billingAddress}">Address</td>
+            <td th:text="${order.orderSum}">500</td>
+            <td><i class="fas fa-plus"></i></td>
+            <td><i class="fas fa-trash"></i></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

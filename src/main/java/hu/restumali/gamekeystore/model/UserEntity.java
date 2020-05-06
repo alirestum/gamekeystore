@@ -2,6 +2,7 @@ package hu.restumali.gamekeystore.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -34,8 +35,9 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private UserRoleType role;
+    private List<UserRoleType> role;
 
 
 }

@@ -11,8 +11,7 @@
     <form  th:action="${url}" th:object="${newProduct}" method="post" enctype="multipart/form-data">
         <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('name')}" th:text="${err}"></div>
         <div class="form-group">
-            <input type="text" class="form-control" th:field="*{name}" th:classappend="${#fields.errors('name')} ? 'is-invalid' : '' " placeholder="Product name"/>
-            <div class="invalid-feedback" th:text="${#fields.errors('name')}"></div>
+            <input type="text" class="form-control" th:field="*{name}" placeholder="Product name"/>
         </div>
         <div class="form-group">
             <label>Description</label>

@@ -2,9 +2,19 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="/fragments/header.html :: header"></th:block>
+    <script type="text/javascript" th:src="@{~/js/products.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/top-bar.html :: contactbar"></div>
 <div th:replace="fragments/navbar.html :: navbar"></div>
+<div class="container text-center">
+    <h1 class="page-title">Search</h1>
+    <form>
+        <input onkeydown="searchProducts(this)" type="text">
+    </form>
+    <div class="search">
+
+    </div>
+</div>
 </body>
 </html>

@@ -33,4 +33,6 @@ public class CouponEntity implements Serializable {
 
     @OneToMany(mappedBy = "coupon", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
+
+    private Boolean deleted;
 }

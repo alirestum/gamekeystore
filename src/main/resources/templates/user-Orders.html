@@ -8,20 +8,23 @@
 <div th:replace="fragments/top-bar.html :: contactbar"></div>
 <div th:replace="fragments/navbar.html :: navbar"></div>
 <h1 class="page-title">Orders</h1>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Order date</th>
-        <th>Status</th>
-        <th>Items</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="order : ${orders}">
-        <td th:text="${order.orderDate}">Type</td>
-        <td th:text="${order.status}">500</td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Order date</th>
+            <th>Status</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderDate}">Type</td>
+            <td th:text="${order.status}">500</td>
+            <td th:text="${order.orderSum}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

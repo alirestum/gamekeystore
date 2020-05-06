@@ -60,4 +60,6 @@ public class ProductEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private PlatformType platform;
 
+    private Boolean featured;
+
 }

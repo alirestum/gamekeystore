@@ -10,24 +10,24 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
-@PasswordMatchConstraint
+@PasswordMatchConstraint(message = "Passwords does not match!")
 public class UserDTO {
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "This field is required!")
     private String firstName;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "This field is required!")
     private String lastName;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "This field is required!")
     private String password;
 
     private String passwordConfirm;
 
-    @NotNull
-    @Email
+    @NotNull(message = "This field is required!")
+    @Email(message = "Please add a valid email!")
     private String email;
 }

@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -35,13 +36,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole(UserRoleType.WebshopAdmin.toString())
-                .antMatchers("/css/**", "/").permitAll()
+                .antMatchers("/admin/**").hasRole(UserRoleType.WebshopAdmin.name())
                 .antMatchers("/user/register").permitAll()
                 .antMatchers("/user/login").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/user/**").hasRole(UserRoleType.Customer.toString())
+                .antMatchers("/user/**").hasAnyRole(UserRoleType.WebshopAdmin.name(), UserRoleType.Customer.name())
+                .antMatchers("/checkout/**").hasAnyRole(UserRoleType.WebshopAdmin.name(), UserRoleType.Customer.name())
 
+                .antMatchers("/css/**", "/").permitAll()
                     .and()
                 .formLogin().loginPage("/user/login").loginProcessingUrl("/user/login").successHandler(getAuthSuccessHandler())
                     .and()

@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.restumali.gamekeystore.model.*;
 import hu.restumali.gamekeystore.service.CouponService;
 import hu.restumali.gamekeystore.service.FileService;
+import hu.restumali.gamekeystore.service.OrderService;
 import hu.restumali.gamekeystore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
+@PreAuthorize("hasRole('ROLE_WebshopAdmin')")
 public class AdminController {
 
     @Autowired
@@ -30,6 +33,9 @@ public class AdminController {
 
     @Autowired
     CouponService couponService;
+
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String adminHomePage(){
@@ -170,7 +176,7 @@ public class AdminController {
         return "admin-couponForm";
     }
 
-    @PostMapping(value = "coupons/{id}/update")
+    @PostMapping(value = "/coupons/{id}/update")
     public String updateCoupon(@PathVariable("id") Long couponId,
                                @Valid CouponEntityDTO newCoupon,
                                RedirectAttributes redirectAttributes,
@@ -186,9 +192,16 @@ public class AdminController {
     }
 
 
-    @GetMapping(value = "coupons/{id}/delete")
+    @GetMapping(value = "/coupons/{id}/delete")
     public String deleteCoupon(@PathVariable("id") Long couponId){
         couponService.deleteOneById(couponId);
         return "redirect:/admin/coupons";
+    }
+
+    @GetMapping(value = "/orders")
+    public String getOrders(Map<String, Object> map){
+        List<OrderEntity> orders = orderService.getAllOrders();
+        map.put("orders", orders);
+        return "admin-orders";
     }
 }
