@@ -13,6 +13,10 @@ public class PasswordsMatchValidator implements ConstraintValidator<PasswordMatc
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         UserDTO user = (UserDTO) value;
-        return user.getPassword().equals(user.getPasswordConfirm());
+        if (user.getPasswordConfirm().isBlank()){
+            return true;
+        } else {
+            return user.getPassword().equals(user.getPasswordConfirm());
+        }
     }
 }

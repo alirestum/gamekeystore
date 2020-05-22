@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+</head>
+<body>
+<div th:fragment="order-productsList">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Base Price</th>
+            <th>Sale Price</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderItem : ${orderItems}">
+            <td th:text="${ord}"></td>
+            <td th:text="${orderItem.product.quantity}"></td>
+            <td th:text="${orderItem.product.basePrice}"></td>
+            <td th:text="${orderItem.product.salePrice}"></td>
+            <td><a><i class="fas fa-trash"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

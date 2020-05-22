@@ -2,16 +2,16 @@ package hu.restumali.gamekeystore.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.restumali.gamekeystore.model.*;
-import hu.restumali.gamekeystore.service.CouponService;
-import hu.restumali.gamekeystore.service.FileService;
-import hu.restumali.gamekeystore.service.OrderService;
-import hu.restumali.gamekeystore.service.ProductService;
+import hu.restumali.gamekeystore.service.*;
+import lombok.Getter;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -36,6 +36,9 @@ public class AdminController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    OrderItemService orderItemService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String adminHomePage(){
@@ -136,7 +139,7 @@ public class AdminController {
 
     @RequestMapping(value = "/coupons", method = RequestMethod.GET)
     public String coupons(Map<String, Object> map){
-        List<CouponEntity> coupons = couponService.findAll();
+        List<CouponEntity> coupons = couponService.findAllNotDeleted();
         map.put("couponsList", coupons);
         return "admin-coupons";
     }
@@ -150,7 +153,7 @@ public class AdminController {
 
     @RequestMapping(value = "/coupons/addcoupon", method = RequestMethod.POST)
     public String addCoupon(@ModelAttribute("newCoupon")
-                            CouponEntityDTO newCoupon,
+                            @Valid CouponEntityDTO newCoupon,
                             BindingResult bindingResult,
                             RedirectAttributes redirectAttributes){
 
@@ -203,5 +206,36 @@ public class AdminController {
         List<OrderEntity> orders = orderService.getAllOrders();
         map.put("orders", orders);
         return "admin-orders";
+    }
+
+    @GetMapping(value = "/orders/{id}/delete")
+    public String deleteOrder(@PathVariable("id") Long orderId){
+        orderService.deleteOrderById(orderId);
+        return "redirect:/admin/orders";
+    }
+
+    @GetMapping(value = "/orders/{id}/update")
+    public String updateOrder(@PathVariable("id") Long orderId,
+                              Map<String, Object> map){
+        OrderEntity order = orderService.findById(orderId);
+        map.put("order", order);
+        map.put("orderStatusType", EnumSet.allOf(OrderStatusType.class));
+        return "admin-orderForm";
+    }
+
+    @PostMapping(value = "/orders/{id}/update")
+    public String updateOrder(@PathVariable("id") Long orderId,
+                              OrderEntity order){
+        orderService.updateOrder(orderId, order);
+        return "redirect:/admin/orders";
+    }
+
+    @GetMapping(value = "/orders/{id}/products")
+    public String getProductsByOrder(@PathVariable("id") Long id,
+                                           Map<String, Object> map){
+        OrderEntity order = orderService.findById(id);
+        List<OrderItemEntity> orderItems = orderItemService.findAllByOrder(order);
+        map.put("orderItems", orderItems);
+        return "admin-order-products";
     }
 }

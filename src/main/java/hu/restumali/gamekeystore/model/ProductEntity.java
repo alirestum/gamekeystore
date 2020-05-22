@@ -42,7 +42,7 @@ public class ProductEntity implements Serializable {
     @NotNull
     private ProductAvailabilityType availability;
 
-    @Lob
+
     private String description;
 
 

@@ -26,6 +26,9 @@ public class Address {
     @NotEmpty(message = "Street is required!")
     private String street;
 
+    @NotEmpty(message = "City is required!")
+    private String city;
+
     @NotNull(message = "Number is required!")
     @Positive(message = "Number can't be negative!")
     private Integer number;

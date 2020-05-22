@@ -21,7 +21,7 @@
         </thead>
         <tbody>
         <tr th:each="cartItem : ${cartItems}">
-            <td th:text="${cartItem.product.name}">Type</td>
+            <td th:id="${cartItem.product.name}" th:text="${cartItem.product.name}">Type</td>
 
             <td><input style="width: 50px" type="number" th:name="${cartItem.product.id}" min="1" step="1" th:value="${cartItem.quantity}" onchange="updateCount(this)" onkeydown="return false"></td>
             <td th:text="${cartItem.productSum}">Address</td>

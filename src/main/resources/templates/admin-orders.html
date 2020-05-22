@@ -17,6 +17,7 @@
             <th>Sum</th>
             <th>Products</th>
             <th>Delete</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -25,8 +26,9 @@
             <td th:text="${order.status}">Type</td>
             <td th:text="${order.billingAddress}">Address</td>
             <td th:text="${order.orderSum}">500</td>
-            <td><i class="fas fa-plus"></i></td>
-            <td><i class="fas fa-trash"></i></td>
+            <td><a th:href="|/admin/orders/${order.id}/products|"><i class="fas fa-plus"></i></a></td>
+            <td><a th:href="|/admin/orders/${order.id}/delete|"><i class="fas fa-trash"></i></a></td>
+            <td><a th:href="|/admin/orders/${order.id}/update|"><i class="fas fa-edit"></i></a></td>
         </tr>
         </tbody>
     </table>

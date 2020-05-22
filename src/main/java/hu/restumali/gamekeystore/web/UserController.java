@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,7 +39,7 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_Customer') or hasAnyRole('ROLE_WebshopAdmin')")
+    @PreAuthorize("hasRole('ROLE_Customer') or hasRole('ROLE_WebshopAdmin')")
     @PostMapping(value = "/profile")
     public String profile(Map<String, Object> map,
                           @Valid Address address,
@@ -50,6 +51,7 @@ public class UserController {
             userService.updateUserAddress(userName, address);
             return "redirect:/user/profile";
         } else {
+            System.out.println(bindingResult);
             redirectAttributes.addFlashAttribute("address", address);
             redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "address", bindingResult);
             return "profile";
@@ -70,10 +72,12 @@ public class UserController {
     public String register(@Valid UserDTO newUser,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes){
-        if (!bindingResult.hasErrors()){
+        if (!bindingResult.hasErrors() && newUser.getPassword().equals(newUser.getPasswordConfirm())){
             userService.registerNewUser(newUser);
             return "redirect:/";
         } else{
+            if (!newUser.getPassword().equals(newUser.getPasswordConfirm()))
+                bindingResult.addError(new FieldError("userDTO", "passwordConfirm", "Passwords do not match!"));
             redirectAttributes.addFlashAttribute("user", newUser);
             redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "user", bindingResult);
             return "redirect:/user/register";

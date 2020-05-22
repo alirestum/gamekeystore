@@ -46,3 +46,8 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+task run(type:JavaExec) {
+	main = 'hu.restumali.gamekeystore.GamekeystoreApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}

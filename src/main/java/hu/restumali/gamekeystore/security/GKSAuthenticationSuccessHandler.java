@@ -37,6 +37,8 @@ public class GKSAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
         response.setStatus(HttpServletResponse.SC_OK);
 
         String targetUrl = savedRequest.getRedirectUrl() == null ? "/" : savedRequest.getRedirectUrl();
+        if (targetUrl.equals("/user/login"))
+            targetUrl = "/";
 
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }

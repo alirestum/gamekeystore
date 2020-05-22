@@ -2,14 +2,12 @@ package hu.restumali.gamekeystore.service;
 
 import hu.restumali.gamekeystore.config.NoValidBillingAddressException;
 import hu.restumali.gamekeystore.model.*;
+import hu.restumali.gamekeystore.repository.OrderItemRepository;
 import hu.restumali.gamekeystore.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.lang.model.util.SimpleAnnotationValueVisitor6;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,11 +21,14 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    public OrderItem createOrderItem(ProductEntity product){
-        return new OrderItem(product);
+    @Autowired
+    OrderItemRepository orderItemRepository;
+
+    public OrderItemEntity createOrderItem(ProductEntity product){
+        return new OrderItemEntity(product);
     }
 
-    public void createOrder(String userName, List<OrderItem> items, Integer orderSum, CouponEntity coupon){
+    public void createOrder(String userName, List<OrderItemEntity> items, Integer orderSum, CouponEntity coupon){
         UserEntity user = userService.getUserByEmail(userName);
         if (user.getAddress() == null)
             throw new NoValidBillingAddressException("Please set a valid billing address");
@@ -41,6 +42,10 @@ public class OrderService {
         order.setBillingAddress(user.getAddress());
         userService.addOrderToUser(userName, order);
         orderRepository.save(order);
+        for (OrderItemEntity item :items){
+            item.setOrder(order);
+            orderItemRepository.save(item);
+        }
     }
 
     public List<OrderEntity> getOrdersByUser(String userName){
@@ -49,5 +54,22 @@ public class OrderService {
 
     public List<OrderEntity> getAllOrders(){
         return orderRepository.findAll();
+    }
+
+    public void deleteOrderById(Long id){
+        OrderEntity managedEntity = orderRepository.findOneById(id);
+        managedEntity.setStatus(OrderStatusType.Deleted);
+        orderRepository.save(managedEntity);
+    }
+
+    public OrderEntity findById(Long id){
+        return orderRepository.findOneById(id);
+    }
+
+    public void updateOrder(Long id, OrderEntity updatedOrder){
+        OrderEntity managedOrder = orderRepository.findOneById(id);
+        managedOrder.setStatus(updatedOrder.getStatus());
+        managedOrder.setBillingAddress(updatedOrder.getBillingAddress());
+        orderRepository.save(managedOrder);
     }
 }

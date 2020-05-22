@@ -4,5 +4,6 @@ public enum OrderStatusType {
     Confirmed,
     Pending,
     Completed,
-    Denied
+    Denied,
+    Deleted
 }

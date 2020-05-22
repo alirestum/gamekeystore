@@ -15,27 +15,32 @@
     <a th:href="@{~/user/logout}"><button class="btn btn-primary">Logout</button></a>
     <h3>Change address</h3>
     <form th:action="@{~/user/profile}" method="post" th:object="${address}">
-        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('country')}" th:text="${err}"></div>
         <div class="form-group">
             <label>Country</label>
+            <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('country')}" th:text="${err}"></div>
             <input type="text" class="form-control" th:field="*{country}" placeholder="Enter country" >
         </div>
 
-        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('state')}" th:text="${err}"></div>
         <div class="form-group">
             <label>State</label>
+            <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('state')}" th:text="${err}"></div>
             <input type="text" class="form-control" th:field="*{state}" placeholder="Enter state">
         </div>
 
-        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('street')}" th:value="${err}"></div>
+        <div class="form-group">
+            <label>City</label>
+            <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('city')}" th:text="${err}"></div>
+            <input type="text" class="form-control" th:field="*{city}" placeholder="Enter city">
+        </div>
         <div class="form-group">
             <label>Street</label>
+            <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('street')}" th:text="${err}"></div>
             <input type="text" class="form-control" th:field="*{street}" placeholder="Enter street">
         </div>
 
-        <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('number')}" th:text="${err}"></div>
         <div class="form-group">
             <label>Number</label>
+            <div class="alert alert-danger" role="alert" th:each="err: ${#fields.errors('number')}" th:text="${err}"></div>
             <input type="text" class="form-control" th:field="*{number}" placeholder="Enter number">
         </div>
         <div class="form-group">

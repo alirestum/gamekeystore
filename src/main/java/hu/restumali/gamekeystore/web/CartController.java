@@ -1,7 +1,7 @@
 package hu.restumali.gamekeystore.web;
 
 import hu.restumali.gamekeystore.config.CouponException;
-import hu.restumali.gamekeystore.model.OrderItem;
+import hu.restumali.gamekeystore.model.OrderItemEntity;
 import hu.restumali.gamekeystore.service.CartService;
 import hu.restumali.gamekeystore.service.OrderService;
 import hu.restumali.gamekeystore.service.ProductService;
@@ -38,8 +38,8 @@ public class CartController {
 
     @PostMapping(value = "/addtocart")
     public ResponseEntity<String> addToCart(@RequestParam Long productId){
-        OrderItem orderItem = orderService.createOrderItem(productService.findById(productId));
-        cartService.addToCart(orderItem);
+        OrderItemEntity orderItemEntity = orderService.createOrderItem(productService.findById(productId));
+        cartService.addToCart(orderItemEntity);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -59,8 +59,9 @@ public class CartController {
     }
 
     @PostMapping(value = "updatecount")
-    public ResponseEntity<Object> updateCount(@RequestParam("id") Long id){
-        cartService.updateItemCount(id);
+    public ResponseEntity<Object> updateCount(@RequestParam("id") Long id,
+                                              @RequestParam("quantity") Integer quantity){
+        cartService.updateItemCount(id, quantity);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

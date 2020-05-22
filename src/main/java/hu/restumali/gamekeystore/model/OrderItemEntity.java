@@ -2,21 +2,31 @@ package hu.restumali.gamekeystore.model;
 
 import lombok.Data;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Data
-@Embeddable
-public class OrderItem {
+@Entity(name = "order_items")
+public class OrderItemEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @ManyToOne(targetEntity = ProductEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private ProductEntity product;
 
     private Integer quantity;
 
     private Integer productSum;
 
-    public OrderItem(){}
+    @ManyToOne(targetEntity = OrderEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private OrderEntity order;
 
-    public OrderItem(ProductEntity product){
+    public OrderItemEntity(){}
+
+    public OrderItemEntity(ProductEntity product){
         this.product = product;
         this.quantity = 1;
         this.productSum = product.getSalePrice() == null ? product.getBasePrice() : product.getSalePrice();
@@ -27,8 +37,8 @@ public class OrderItem {
         this.productSum = quantity * (this.product.getSalePrice() == null ? this.product.getBasePrice() : this.product.getSalePrice());
     }
 
-    public void increaseQuantity(){
-        this.quantity++;
+    public void updateQuantity(Integer quantity){
+        this.quantity = quantity;
         this.productSum = this.quantity * (this.product.getSalePrice() == null ? this.product.getBasePrice() : this.product.getSalePrice());
     }
 

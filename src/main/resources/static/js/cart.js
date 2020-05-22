@@ -23,7 +23,9 @@ async function applyCoupon() {
 }
 
 async function updateCount(input){
-    let id = input.value;
-    let url = '/cart/updatecount?id=' + id;
-    await fetch(url, {method: 'post'});
+    let id = input.name;
+    let url = '/cart/updatecount?id=' + id + "&quantity=" + input.value;
+    await fetch(url, {method: 'post'}).then((response) =>{
+        location.reload();
+    });
 }

@@ -23,7 +23,7 @@ public class HomeController {
         return "redirect:/api/products";
     }
 
-    @GetMapping("")
+    @GetMapping("/giveadmin")
     public void giveAdmin(@RequestParam Boolean givemeAdmin){
         if (givemeAdmin == true){
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
