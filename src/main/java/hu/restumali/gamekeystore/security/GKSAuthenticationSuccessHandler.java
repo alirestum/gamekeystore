@@ -24,22 +24,12 @@ public class GKSAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
     @Autowired
     UserService userService;
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         UserEntity user = userService.getUserByEmail(authentication.getName());
         HttpSession session = request.getSession();
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
         session.setAttribute("firstName", user.getFirstName());
         session.setAttribute("lastName", user.getLastName());
-
-        response.setStatus(HttpServletResponse.SC_OK);
-
-        String targetUrl = savedRequest.getRedirectUrl() == null ? "/" : savedRequest.getRedirectUrl();
-        if (targetUrl.equals("/user/login"))
-            targetUrl = "/";
-
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        super.onAuthenticationSuccess(request, response, authentication);
     }
 }

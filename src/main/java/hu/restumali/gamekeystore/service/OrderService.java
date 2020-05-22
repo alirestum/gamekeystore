@@ -72,4 +72,10 @@ public class OrderService {
         managedOrder.setBillingAddress(updatedOrder.getBillingAddress());
         orderRepository.save(managedOrder);
     }
+
+    public void removeOrderItem(Long orderId, Long productId){
+        OrderEntity managedOrder = orderRepository.findOneById(orderId);
+        managedOrder.getItems().removeIf(it -> it.getProduct().getId().equals(productId));
+        orderRepository.save(managedOrder);
+    }
 }

@@ -2,32 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <th:block th:include="fragments/header.html :: header"></th:block>
-    <script th:href="@{~/js/admin.js}"></script>
+    <th:block th:include="/fragments/admin-header.html :: admin-header"></th:block>
+    <script type="text/javascript" th:src="@{~/js/admin.js}"></script>
 </head>
 <body>
 <div class="container text-center my-3">
-    <!--<div id="order-products" th:replace="/fragments/admin-order-productsFragment.html :: order-productsList"></div>-->
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Base Price</th>
-            <th>Sale Price</th>
-            <th>Remove</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="orderItem : ${orderItems}">
-            <td th:text="${orderItem.product.name}"></td>
-            <td th:text="${orderItem.quantity}"></td>
-            <td th:text="${orderItem.product.basePrice}"></td>
-            <td th:text="${orderItem.product.salePrice}"></td>
-            <td><a><i class="fas fa-trash"></i></a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:replace="/fragments/admin-order-productsFragment.html :: order-productsList"></div>
 </div>
 </body>
 </html>

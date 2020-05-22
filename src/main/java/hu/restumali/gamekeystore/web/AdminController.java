@@ -6,6 +6,8 @@ import hu.restumali.gamekeystore.service.*;
 import lombok.Getter;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -238,4 +240,28 @@ public class AdminController {
         map.put("orderItems", orderItems);
         return "admin-order-products";
     }
+
+    @PostMapping(value = "/orders/{orderId}/products/{productId}/updatequantity")
+    public String updateOrderItemQuantity(@PathVariable("orderId") Long orderId,
+                                          @PathVariable("productId") Long productId,
+                                          @RequestParam("quantity") Integer quantity,
+                                          Map<String, Object> map){
+        orderItemService.updateQuantity(orderId, productId, quantity);
+        List<OrderItemEntity> orderItems = orderItemService.findAllByOrder(orderService.findById(orderId));
+        map.put("orderItems", orderItems);
+        return "/fragments/admin-order-productsFragment.html :: order-productsList";
+    }
+
+    @PostMapping(value = "orders/{orderId}/products/{productId}/removeproduct")
+    public String removeOrderItem(@PathVariable("orderId") Long orderId,
+                                  @PathVariable("productId") Long productId,
+                                  Map<String, Object> map){
+        orderService.removeOrderItem(orderId, productId);
+        List<OrderItemEntity> orderItems = orderItemService.findAllByOrder(orderService.findById(orderId));
+        map.put("orderItems", orderItems);
+        return "fragments/admin-order-productsFragment.html :: order-productsList";
+        //TODO item does not remove from order
+    }
+
+
 }

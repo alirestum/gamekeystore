@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="/fragments/header.html :: header"></th:block>
+    <script th:href="static/js/admin.js" type="text/javascript"></script>
 </head>
 <body>
-<div th:fragment="order-productsList">
+<div id="order-products" th:fragment="order-productsList">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -12,16 +12,23 @@
             <th>Quantity</th>
             <th>Base Price</th>
             <th>Sale Price</th>
+            <th>Product Sum</th>
             <th>Remove</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="orderItem : ${orderItems}">
-            <td th:text="${ord}"></td>
-            <td th:text="${orderItem.product.quantity}"></td>
+            <td th:text="${orderItem.product.name}"></td>
+            <td><input th:name="${orderItem.product.id}" th:value="${orderItem.quantity}"
+                       style="width: 50px" type="number" min="1" step="1"
+                       onchange="updateItemCount(this)" onkeydown="return false">
+            </td>
             <td th:text="${orderItem.product.basePrice}"></td>
             <td th:text="${orderItem.product.salePrice}"></td>
-            <td><a><i class="fas fa-trash"></i></a></td>
+            <td th:text="${orderItem.productSum}"></td>
+            <td>
+                <i class="fas fa-trash" onclick="removeItem(this)" th:attr="data-productId=${orderItem.product.id}"></i>
+            </td>
         </tr>
         </tbody>
     </table>
