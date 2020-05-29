@@ -351,3 +351,9 @@ a:hover {
     justify-content: center;
     margin-top: 3em;
 }
+
+
+.search-pre-animation{
+    opacity:0;
+    max-height: 0;
+}

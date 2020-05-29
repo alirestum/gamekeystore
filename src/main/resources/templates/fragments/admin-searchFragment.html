@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+</head>
+<body>
+<div th:fragment="admin-searchResult">
+    <div class="alert alert-success d-none"></div>
+    <form>
+        <input onkeydown="searchProducts(this)" type="text">
+    </form>
+    <table class="table table-striped search-result">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Base price</th>
+            <th>Sale price</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td><img th:src="|/cnd/${product.featuredImageUrl}|" class="admin-product-image"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.basePrice}"></td>
+            <td th:text="${product.salePrice}"></td>
+            <td>
+                <i class="fas fa-plus" onclick="addOrderItem(this)"
+                   th:attr="data-productId=${product.id}"></i>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+    <title>Cart</title>
+    <script type="text/javascript" th:src="@{~/js/cart.js}"></script>
+    <script type="text/javascript" th:src="@{~/js/user.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/top-bar.html :: contactbar"></div>
+<div th:replace="fragments/navbar.html :: navbar"></div>
+<h1 class="page-title">Rate products</h1>
+<div class="container">
+    <div th:if="${products.size() == 0}" class="alert alert-info">You do not have rateable products.</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.name}"></td>
+            <td th:id="${product.id}">
+                <i class="far fa-star" data-rating="1" th:data-productId="${product.id}" onmouseover="animateRating(this)" onclick="rateProduct(this)"></i>
+                <i class="far fa-star" data-rating="2" th:data-productId="${product.id}" onmouseover="animateRating(this)" onclick="rateProduct(this)"></i>
+                <i class="far fa-star" data-rating="3" th:data-productId="${product.id}" onmouseover="animateRating(this)" onclick="rateProduct(this)"></i>
+                <i class="far fa-star" data-rating="4" th:data-productId="${product.id}" onmouseover="animateRating(this)" onclick="rateProduct(this)"></i>
+                <i class="far fa-star" data-rating="5" th:data-productId="${product.id}" onmouseover="animateRating(this)" onclick="rateProduct(this)"></i>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

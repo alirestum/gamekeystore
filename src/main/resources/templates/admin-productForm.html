@@ -50,6 +50,14 @@
                 </select>
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Age limit:</label>
+            <div class="col-sm-10">
+                <select th:field="*{ageLimit}" >
+                    <option th:each="ageLimit: ${ageLimitOptions}" th:value="${ageLimit}" th:text="${ageLimit.name}"></option>
+                </select>
+            </div>
+        </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Categories:</label>

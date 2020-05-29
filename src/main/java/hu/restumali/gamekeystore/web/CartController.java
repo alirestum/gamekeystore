@@ -38,7 +38,7 @@ public class CartController {
 
     @PostMapping(value = "/addtocart")
     public ResponseEntity<String> addToCart(@RequestParam Long productId){
-        OrderItemEntity orderItemEntity = orderService.createOrderItem(productService.findById(productId));
+        OrderItemEntity orderItemEntity = orderService.createOrderItem(productService.findById(productId), null);
         cartService.addToCart(orderItemEntity);
         return new ResponseEntity<>(HttpStatus.OK);
     }

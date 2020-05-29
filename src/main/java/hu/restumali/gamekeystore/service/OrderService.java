@@ -4,6 +4,7 @@ import hu.restumali.gamekeystore.config.NoValidBillingAddressException;
 import hu.restumali.gamekeystore.model.*;
 import hu.restumali.gamekeystore.repository.OrderItemRepository;
 import hu.restumali.gamekeystore.repository.OrderRepository;
+import hu.restumali.gamekeystore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,14 @@ public class OrderService {
     @Autowired
     OrderItemRepository orderItemRepository;
 
-    public OrderItemEntity createOrderItem(ProductEntity product){
-        return new OrderItemEntity(product);
+    @Autowired
+    ProductRepository productRepository;
+
+    public OrderItemEntity createOrderItem(ProductEntity product, OrderEntity order){
+        OrderItemEntity orderItemEntity = new OrderItemEntity(product);
+        orderItemEntity.setOrder(order);
+        orderItemRepository.save(orderItemEntity);
+        return orderItemEntity;
     }
 
     public void createOrder(String userName, List<OrderItemEntity> items, Integer orderSum, CouponEntity coupon){
@@ -42,7 +49,7 @@ public class OrderService {
         order.setBillingAddress(user.getAddress());
         userService.addOrderToUser(userName, order);
         orderRepository.save(order);
-        for (OrderItemEntity item :items){
+        for (OrderItemEntity item : items){
             item.setOrder(order);
             orderItemRepository.save(item);
         }
@@ -75,7 +82,23 @@ public class OrderService {
 
     public void removeOrderItem(Long orderId, Long productId){
         OrderEntity managedOrder = orderRepository.findOneById(orderId);
+        OrderItemEntity orderItemEntity = managedOrder.getItems().stream().filter(it -> it.getProduct().getId().equals(productId)).findFirst().get();
         managedOrder.getItems().removeIf(it -> it.getProduct().getId().equals(productId));
+        orderItemRepository.delete(orderItemEntity);
+        managedOrder.setOrderSum(managedOrder.getItems().stream().mapToInt(OrderItemEntity::getProductSum).sum());
         orderRepository.save(managedOrder);
+    }
+
+    public void addOrderItem(Long orderId, Long productId){
+        OrderEntity managedOrder = orderRepository.findOneById(orderId);
+        ProductEntity newProduct = productRepository.findOneById(productId);
+        OrderItemEntity newItem = this.createOrderItem(newProduct, managedOrder);
+        managedOrder.getItems().add(newItem);
+        orderRepository.save(managedOrder);
+    }
+
+    public List<OrderEntity> findCompletedOrdersByUser(String userName){
+        UserEntity user = userService.getUserByEmail(userName);
+        return orderRepository.findAllByCustomerAndStatus(user, OrderStatusType.Completed);
     }
 }

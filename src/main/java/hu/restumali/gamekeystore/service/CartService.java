@@ -75,11 +75,10 @@ public class CartService {
 
     public OrderItemEntity updateItemCount(Long id, Integer quantity) {
         items.forEach(orderItem -> {
-            if (orderItem.getProduct().getId().equals(id)){
+            if (orderItem.getProduct().getId().equals(id))
                 orderItem.updateQuantity(quantity);
-                this.cartSum += orderItem.getProductSum();
-            }
         });
+        this.cartSum = items.stream().mapToInt(OrderItemEntity::getProductSum).sum();
        return items.stream().filter(it -> it.getProduct().getId().equals(id)).findFirst().get();
     }
 

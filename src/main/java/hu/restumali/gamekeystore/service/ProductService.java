@@ -22,7 +22,11 @@ public class ProductService {
 
     public void delete(ProductEntity productEntity) {productRepository.delete(productEntity);}
 
-    public void deleteById(Long id){ productRepository.deleteById(id);}
+    public void deleteById(Long id){
+        ProductEntity managedProduct = productRepository.findOneById(id);
+        managedProduct.setAvailability(ProductAvailabilityType.Unavailable);
+        productRepository.save(managedProduct);
+    }
 
     public List<ProductEntity> findAll(){ return productRepository.findAll(); }
 
@@ -32,12 +36,8 @@ public class ProductService {
         return productRepository.findAllByCategoriesIn(categories);
     }
 
-    public Page<ProductEntity> filter(List<PlatformType> platforms, List<GameCategories> categories, Integer maxPrice, Pageable pageable){
-        return productRepository
-                .findAllByPlatformInAndCategoriesInAndSalePriceIsLessThanEqualAndAvailabilityOrPlatformInAndCategoriesInAndBasePriceIsLessThanEqualAndAvailability(platforms,
-                        categories, maxPrice, ProductAvailabilityType.InStock, platforms, categories, maxPrice, ProductAvailabilityType.InStock, pageable);
-
-
+    public Page<ProductEntity> filter(List<PlatformType> platforms, List<GameCategories> categories, Integer maxPrice, List<AgeLimitType> ageLimits, Pageable pageable){
+        return productRepository.filteredProducts(maxPrice, platforms, categories, ProductAvailabilityType.InStock, ageLimits, pageable);
     }
 
     public List<ProductEntity> searchByName(String name){
@@ -54,6 +54,7 @@ public class ProductService {
             managedProduct.setFeaturedImageUrl(product.getFeaturedImageUrl());
         managedProduct.setCategories(product.getCategories());
         managedProduct.setPlatform(product.getPlatform());
+        managedProduct.setAgeLimit(product.getAgeLimit());
     }
 
     public Integer highestPrice(){
@@ -70,5 +71,8 @@ public class ProductService {
 
     public Page<ProductEntity> getByAvailabilityWithPages(Pageable pageable){
         return productRepository.findAllByAvailability(pageable, ProductAvailabilityType.InStock);
+    }
+
+    public void exportAllProducts() {
     }
 }

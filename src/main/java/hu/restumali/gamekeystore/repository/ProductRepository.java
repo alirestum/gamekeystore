@@ -1,13 +1,11 @@
 package hu.restumali.gamekeystore.repository;
 
-import hu.restumali.gamekeystore.model.GameCategories;
-import hu.restumali.gamekeystore.model.PlatformType;
-import hu.restumali.gamekeystore.model.ProductAvailabilityType;
-import hu.restumali.gamekeystore.model.ProductEntity;
+import hu.restumali.gamekeystore.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,21 +20,22 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     List<ProductEntity> findAllByCategoriesIn(List<GameCategories> categories);
 
-    Page<ProductEntity> findAllByPlatformInAndCategoriesInAndSalePriceIsLessThanEqualAndAvailabilityOrPlatformInAndCategoriesInAndBasePriceIsLessThanEqualAndAvailability(List<PlatformType> platforms1,
-                                                                                                                                            List<GameCategories> categories1,
-                                                                                                                                            Integer salePrice,
-                                                                                                                                            ProductAvailabilityType availability1,
-                                                                                                                                            List<PlatformType> platforms2,
-                                                                                                                                            List<GameCategories> categories2,
-                                                                                                                                            Integer basePrice, ProductAvailabilityType availability2,
-                                                                                                                                                                              Pageable pageable);
 
+    @Query("select distinct product from ProductEntity product join product.categories c where (product.salePrice <= :maxPrice or product.basePrice <= :maxPrice) and " +
+            "(product.platform in :platforms) and (c in :categories ) and (product.availability = :availability) " +
+            "and (product.ageLimit in :ageLimits)")
+    Page<ProductEntity> filteredProducts(
+            @Param("maxPrice") Integer maxPrice,
+            @Param("platforms") List<PlatformType> platforms,
+            @Param("categories") List<GameCategories> categories,
+            @Param("availability") ProductAvailabilityType availabilityType,
+            @Param("ageLimits") List<AgeLimitType> ageLimits,
+            Pageable pageable
+    );
 
     Page<ProductEntity> findAllByAvailability(Pageable pageable, ProductAvailabilityType availability);
 
     List<ProductEntity> findTop5ByNameIsLikeIgnoreCase(String name);
-
-    //List<ProductEntity> filterByPriceAndPlatformAndCategory();
 
     ProductEntity findOneById(Long id);
 }

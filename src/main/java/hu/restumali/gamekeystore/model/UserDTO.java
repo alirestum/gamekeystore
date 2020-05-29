@@ -33,4 +33,12 @@ public class UserDTO {
     @NotEmpty(message = "Email is required!")
     @Email(message = "Please add a valid email!")
     private String email;
+
+    public UserDTO(UserEntity user){
+        this.email = user.getEmail();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.password = user.getPassword();
+        this.passwordConfirm = user.getPassword();
+    }
 }

@@ -23,7 +23,8 @@ public class GKSUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         UserEntity user = repository.findByEmail(email);
-
+        if (user == null)
+            throw new UsernameNotFoundException("User can not be found with email " + email);
         return new UserDetails() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,7 +62,7 @@ public class GKSUserDetailsService implements UserDetailsService {
 
             @Override
             public boolean isEnabled() {
-                return true;
+                return user.getEnabled();
             }
         };
     }

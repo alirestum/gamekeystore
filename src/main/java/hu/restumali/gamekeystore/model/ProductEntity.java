@@ -42,14 +42,12 @@ public class ProductEntity implements Serializable {
     @NotNull
     private ProductAvailabilityType availability;
 
+    @ElementCollection
+    List<Integer> ratings;
 
     private String description;
 
-
     private String featuredImageUrl;
-
-    @ElementCollection
-    private List<String> imagesUrl;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "game_categories", joinColumns = @JoinColumn(name = "product_id"))
@@ -61,5 +59,8 @@ public class ProductEntity implements Serializable {
     private PlatformType platform;
 
     private Boolean featured;
+
+    @Enumerated(EnumType.STRING)
+    private AgeLimitType ageLimit;
 
 }

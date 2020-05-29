@@ -1,0 +1,517 @@
+[
+  {
+    "name": "Star Wars Battlefront 2",
+    "urlName": null,
+    "basePrice": 23423,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      5
+    ],
+    "description": "40414",
+    "featuredImageUrl": null,
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Star Wars Battlefront 2",
+    "urlName": null,
+    "basePrice": 23423,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      2
+    ],
+    "description": "40415",
+    "featuredImageUrl": null,
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "sadf",
+    "urlName": null,
+    "basePrice": 234234,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40416",
+    "featuredImageUrl": "star-wars-battlefront-ii-pc-elorendelheto-megjelenes-20171117-473853.jpg1588089840659",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "Xbox",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "sadf",
+    "urlName": null,
+    "basePrice": 234234,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40417",
+    "featuredImageUrl": "1588089947861star-wars-battlefront-ii-pc-elorendelheto-megjelenes-20171117-473853.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "Xbox",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Star Wars Jedi: Fallen Order",
+    "urlName": null,
+    "basePrice": 15999,
+    "salePrice": 8999,
+    "availability": "InStock",
+    "ratings": [
+      2
+    ],
+    "description": "40418",
+    "featuredImageUrl": "1588171681012pc-star-wars-jedi-fallen-order_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action",
+      "Adventure"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Grand Theft Auto V",
+    "urlName": null,
+    "basePrice": 11999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40420",
+    "featuredImageUrl": "1588171871678pc-grand-theft-auto-v-gta-5_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action",
+      "RPG",
+      "Adventure"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Battlefield V",
+    "urlName": null,
+    "basePrice": 9999,
+    "salePrice": 6999,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40421",
+    "featuredImageUrl": "1588171914093pc-battlefield-5_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action",
+      "Simulation"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Plants Vs Zombies: Battle For Neighborville",
+    "urlName": null,
+    "basePrice": 10999,
+    "salePrice": 5999,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40422",
+    "featuredImageUrl": "1588171966488pc-plants-vs-zombies-battle-for-neighborville_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action",
+      "Adventure"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Tom Clancy's Rainbow Six Siege",
+    "urlName": null,
+    "basePrice": 8999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40423",
+    "featuredImageUrl": "1588172003642pc-tom-clancys-rainbow-six-siege_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action",
+      "Simulation"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Star Wars Battlefront",
+    "urlName": null,
+    "basePrice": 5999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40424",
+    "featuredImageUrl": "1588172040848pc-star-wars-battlefront-11329_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Fallout 4",
+    "urlName": null,
+    "basePrice": 4999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40425",
+    "featuredImageUrl": "1588172070746pc-fallout-4_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action",
+      "RPG"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Anthem",
+    "urlName": null,
+    "basePrice": 4999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40426",
+    "featuredImageUrl": "1588172097942pc-anthem_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Apex Legends Bloodhound Edition",
+    "urlName": null,
+    "basePrice": 5999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40427",
+    "featuredImageUrl": "1588172125837pc-apex-legends-bloodhound-edition_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "The Sims 4 + Island Living Bundle",
+    "urlName": null,
+    "basePrice": 16999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40428",
+    "featuredImageUrl": "1588172152725pc-the-sims-4-island-living-bundle-ep7_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "Xbox",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "The Sims 4 Discover University",
+    "urlName": null,
+    "basePrice": 11999,
+    "salePrice": 5999,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40429",
+    "featuredImageUrl": "1588172289165pc-the-sims-4-discover-university_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Project Highrise: Architect's Edition",
+    "urlName": null,
+    "basePrice": 8999,
+    "salePrice": 2999,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40430",
+    "featuredImageUrl": "1588172325142pc-project-highrise-architects-edition_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Simulation"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Cooking Simulator",
+    "urlName": null,
+    "basePrice": 3999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40431",
+    "featuredImageUrl": "1588172357028pc-cooking-simulator_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Simulation"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Truck Mechanic Simulator 2015",
+    "urlName": null,
+    "basePrice": 3999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      5
+    ],
+    "description": "40432",
+    "featuredImageUrl": "1588172471707pc-truck-mechanic-simulator-2015_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Simulation"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Frostpunk: Game of the Year Edition",
+    "urlName": null,
+    "basePrice": 8999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40433",
+    "featuredImageUrl": "1588172592122pc-frostpunk-game-of-the-year-edition_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Strategy"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "SimCity",
+    "urlName": null,
+    "basePrice": 6499,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40434",
+    "featuredImageUrl": "1588172615605pc-simcity-7987_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Simulation"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Civilization VI",
+    "urlName": null,
+    "basePrice": 16999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      5
+    ],
+    "description": "40435",
+    "featuredImageUrl": "1588172753699pc-civilization-vi_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Strategy"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "XCOM 2 ",
+    "urlName": null,
+    "basePrice": 15373,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40436",
+    "featuredImageUrl": "15881727881782kgmkt-xcom2-ag-fob-noamarayedges-pegi16_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Strategy"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Total War: Shogun 2 Gold Edition",
+    "urlName": null,
+    "basePrice": 3999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40437",
+    "featuredImageUrl": "1588172808681pc-total-war-shogun-2-gold-edition-10422_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Strategy"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "FIFA 20",
+    "urlName": null,
+    "basePrice": 8999,
+    "salePrice": 15999,
+    "availability": "InStock",
+    "ratings": [
+      1
+    ],
+    "description": "40438",
+    "featuredImageUrl": "1588172875375pc-fifa-20_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Sports"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Football Manager 2020",
+    "urlName": null,
+    "basePrice": 14999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40439",
+    "featuredImageUrl": "1588172903730pc-football-manager-2020_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Sports"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "NBA 2K20",
+    "urlName": null,
+    "basePrice": 15499,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40440",
+    "featuredImageUrl": "1588172923702pc-nba-2k20-pc-letoltheto_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Sports"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Rocket League",
+    "urlName": null,
+    "basePrice": 11706,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [],
+    "description": "40441",
+    "featuredImageUrl": "1588172957351pc-rocket-league-pc-digitalis_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Sports"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": null
+  },
+  {
+    "name": "Doom: Eternal",
+    "urlName": null,
+    "basePrice": 18999,
+    "salePrice": null,
+    "availability": "InStock",
+    "ratings": [
+      3
+    ],
+    "description": "40419",
+    "featuredImageUrl": "1588171809499pc-doom-eternal_thumb674.jpg",
+    "imagesUrl": [],
+    "categories": [
+      "Action"
+    ],
+    "platform": "PC",
+    "featured": null,
+    "ageLimit": "ESRBA"
+  }
+]

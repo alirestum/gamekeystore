@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -26,19 +27,22 @@ public class OrderItemService {
     ProductRepository productRepository;
 
     @Transactional
-    public List<OrderItemEntity> findAllByOrder(OrderEntity order) { return orderItemRepository.findAllByOrder(order); }
+    public List<OrderItemEntity> findAllByOrder(OrderEntity order) { return orderItemRepository.findAllByOrderOrderByProductAsc(order); }
 
     public void updateQuantity(Long orderId, Long productId, Integer quantity){
-        List<OrderItemEntity> items = orderItemRepository.findAllByOrder(orderRepository.findOneById(orderId));
-        for (OrderItemEntity item : items){
+        OrderEntity managedOrder = orderRepository.findOneById(orderId);
+        List<OrderItemEntity> managedItems = orderItemRepository.findAllByOrderOrderByProductAsc(managedOrder);
+        for (OrderItemEntity item : managedItems){
             if (item.getProduct().getId().equals(productId))
                 item.setQuantity(quantity);
         }
-        orderItemRepository.saveAll(items);
+        managedOrder.setOrderSum(managedItems.stream().mapToInt(OrderItemEntity::getProductSum).sum());
+        orderRepository.save(managedOrder);
+        orderItemRepository.saveAll(managedItems);
     }
 
     public void removeItem(Long orderId, Long productId){
-        List<OrderItemEntity> items = orderItemRepository.findAllByOrder(orderRepository.findOneById(orderId));
+        List<OrderItemEntity> items = orderItemRepository.findAllByOrderOrderByProductAsc(orderRepository.findOneById(orderId));
         ProductEntity product = productRepository.findOneById(productId);
         items.remove(product);
         orderItemRepository.saveAll(items);

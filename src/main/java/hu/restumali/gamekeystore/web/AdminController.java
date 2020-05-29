@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,7 @@ public class AdminController {
         map.put("platformTypes", EnumSet.allOf(PlatformType.class));
         map.put("styles", EnumSet.allOf(GameCategories.class));
         map.put("availabilityOptions", EnumSet.allOf(ProductAvailabilityType.class));
+        map.put("ageLimitOptions", EnumSet.allOf(AgeLimitType.class));
         map.put("url", "/admin/products/addproduct");
         return "admin-productForm";
     }
@@ -95,6 +97,7 @@ public class AdminController {
         map.put("platformTypes", EnumSet.allOf(PlatformType.class));
         map.put("styles", EnumSet.allOf(GameCategories.class));
         map.put("availabilityOptions", EnumSet.allOf(ProductAvailabilityType.class));
+        map.put("ageLimitOptions", EnumSet.allOf(AgeLimitType.class));
         map.put("url", "/admin/products/" + productId + "/update");
         return "admin-productForm";
     }
@@ -105,7 +108,6 @@ public class AdminController {
                                 @RequestParam("featuredImage") MultipartFile featuredImage,
                                 BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes){
-        System.out.println(featuredImage);
         if(!bindingResult.hasErrors()){
             if (!featuredImage.isEmpty()){
                 String filename = fileService.uploadFile(featuredImage);
@@ -127,6 +129,14 @@ public class AdminController {
         return "redirect:/admin/products";
     }
 
+    @GetMapping(value = "/products/search")
+    public String searchProducts(@RequestParam("name") String name,
+                                 Map<String, Object> map){
+        List<ProductEntity> products = productService.searchByName("%" + name + "%");
+        map.put("products", products);
+        return "/fragments/admin-searchFragment :: admin-searchResult";
+    }
+
     @GetMapping("/importproducts")
     public String importProducts(){
         return "admin-importProducts";
@@ -136,6 +146,13 @@ public class AdminController {
     public String importProducts(@RequestParam("importFile") MultipartFile file){
         List<ProductEntity> importedProducts = fileService.importFile(file);
         importedProducts.forEach(productEntity -> productService.save(productEntity));
+        return "redirect:products";
+    }
+
+    @GetMapping("/exportproducts")
+    public String exportProducts(){
+        List<ProductEntity> products = productService.findAll();
+        fileService.exportProducts(products);
         return "redirect:products";
     }
 
@@ -216,12 +233,30 @@ public class AdminController {
         return "redirect:/admin/orders";
     }
 
+    @GetMapping(value = "/orders/addorder")
+    public ModelAndView addOrder(){
+        ModelAndView mw = new ModelAndView("admin-orderForm");
+        mw.addObject("url", "/admin/orders/addorder");
+        mw.addObject("order", new OrderEntity());
+        mw.addObject("orderStatusType", EnumSet.allOf(OrderStatusType.class));
+        return mw;
+    }
+
+    @PostMapping(value = "/orders/addorder")
+    public String addOrder(Map<String, Object> map,
+                           OrderEntity newOrder){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        orderService.createOrder(username, new ArrayList<>(), 0, null);
+        return "redirect:/admin/orders";
+    }
+//TODO formok cimei szarok
     @GetMapping(value = "/orders/{id}/update")
     public String updateOrder(@PathVariable("id") Long orderId,
                               Map<String, Object> map){
         OrderEntity order = orderService.findById(orderId);
         map.put("order", order);
         map.put("orderStatusType", EnumSet.allOf(OrderStatusType.class));
+        map.put("url", "/admin/orders/" + orderId + "/update");
         return "admin-orderForm";
     }
 
@@ -260,8 +295,13 @@ public class AdminController {
         List<OrderItemEntity> orderItems = orderItemService.findAllByOrder(orderService.findById(orderId));
         map.put("orderItems", orderItems);
         return "fragments/admin-order-productsFragment.html :: order-productsList";
-        //TODO item does not remove from order
     }
 
+    @PostMapping(value = "orders/{orderId}/products/{productId}/add")
+    public ResponseEntity<String> addOrderItem(@PathVariable("orderId") Long orderId,
+                               @PathVariable("productId") Long productId){
+        orderService.addOrderItem(orderId, productId);
+        return new ResponseEntity<>("Product successfully added to the order!", HttpStatus.OK);
+    }
 
 }

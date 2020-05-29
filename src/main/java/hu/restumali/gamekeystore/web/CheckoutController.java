@@ -44,6 +44,6 @@ public class CheckoutController {
                return "checkout";
         }
         cartService.clearCart();
-        return "redirect:/";
+        return "redirect:/checkout?success";
     }
 }

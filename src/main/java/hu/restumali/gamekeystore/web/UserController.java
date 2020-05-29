@@ -1,9 +1,6 @@
 package hu.restumali.gamekeystore.web;
 
-import hu.restumali.gamekeystore.model.Address;
-import hu.restumali.gamekeystore.model.UserDTO;
-import hu.restumali.gamekeystore.model.UserEntity;
-import hu.restumali.gamekeystore.model.UserRoleType;
+import hu.restumali.gamekeystore.model.*;
 import hu.restumali.gamekeystore.service.OrderService;
 import hu.restumali.gamekeystore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Map;
+import java.util.*;
 
 @RequestMapping(value = "/user")
 @Controller
@@ -84,6 +82,31 @@ public class UserController {
         }
     }
 
+    @GetMapping(value = "/changeinfo")
+    public String changeUserInformation(Map<String, Object> map){
+        UserDTO user = new UserDTO(userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        map.put("user", user);
+        return "user-modifyAccount";
+    }
+
+    @PreAuthorize("hasAnyRole('Customer', 'WebshopAdmin')")
+    @PostMapping(value = "/changeinfo")
+    public String changeUserInformation(@Valid UserDTO userDTO,
+                                        BindingResult bindingResult,
+                                        RedirectAttributes redirectAttributes,
+                                        HttpSession session){
+        if (!bindingResult.hasErrors() && userDTO.getPassword().equals(userDTO.getPasswordConfirm())){
+            userService.modifyUser(userDTO, session);
+            return "redirect:/user/profile";
+        } else {
+            if (!userDTO.getPassword().equals(userDTO.getPasswordConfirm()))
+                bindingResult.addError(new FieldError("userDTO", "passwordConfirm", "Passwords do not match!"));
+            redirectAttributes.addFlashAttribute("user", userDTO);
+            redirectAttributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + "user", bindingResult);
+            return "redirect:/user/changeinfo";
+        }
+    }
+
     @GetMapping(value = "/login")
     public String login(){
         return "user-Login";
@@ -95,6 +118,55 @@ public class UserController {
     public String orders(Map<String, Object> map){
         map.put("orders", orderService.getOrdersByUser(SecurityContextHolder.getContext().getAuthentication().getName()));
         return "user-Orders";
+    }
+
+    @PreAuthorize("hasAnyRole('Customer', 'WebshopAdmin')")
+    @GetMapping(value = "/rateproducts")
+    public String rateProducts(Map<String, Object> map){
+        List<OrderEntity> completedOrdersByUser = orderService.findCompletedOrdersByUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserEntity user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<OrderItemEntity> orderItems = new ArrayList<>();
+        for (OrderEntity o : completedOrdersByUser){
+            orderItems.addAll(o.getItems());
+        }
+        HashSet<ProductEntity> products = new HashSet<>();
+        for (OrderItemEntity oi : orderItems){
+            if (!user.getRatedProducts().contains(oi.getProduct().getId()))
+                products.add(oi.getProduct());
+        }
+        map.put("products", products);
+        return "user-RateProducts";
+    }
+
+    @PreAuthorize("hasAnyRole('Customer', 'WebshopAdmin')")
+    @PostMapping(value = "/rateproducts/{productId}")
+    public String rateProducts(Map<String, Object> map,
+                                @PathVariable("productId") Long productId,
+                               @RequestParam("rating") Integer rating){
+
+        this.userService.rateProduct(productId, SecurityContextHolder.getContext().getAuthentication().getName(), rating);
+        List<OrderEntity> completedOrdersByUser = orderService.findCompletedOrdersByUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserEntity user = userService.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<OrderItemEntity> orderItems = new ArrayList<>();
+        for (OrderEntity o : completedOrdersByUser){
+            orderItems.addAll(o.getItems());
+        }
+        HashSet<ProductEntity> products = new HashSet<>();
+        for (OrderItemEntity oi : orderItems){
+            if (!user.getRatedProducts().contains(oi.getProduct().getId()))
+                products.add(oi.getProduct());
+        }
+        map.put("products", products);
+        return "user-RateProducts";
+    }
+
+    @GetMapping(value = "/closeaccount")
+    public String closeUserAccount(HttpSession session){
+        userService.closeAccount(SecurityContextHolder.getContext().getAuthentication().getName());
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        session.removeAttribute("firstName");
+        session.removeAttribute("lastName");
+        return "redirect:/";
     }
 
 }

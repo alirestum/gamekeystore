@@ -9,7 +9,7 @@
 <div class="container text-center my-3">
     <h1 th:text="${'Edit order #' + order.id}"></h1>
     <div th:replace="fragments/admin-navbar.html :: admin-navbar"></div>
-    <form th:action="|/admin/orders/${order.id}/update|" method="post" th:object="${order}">
+    <form th:action="${url}" method="post" th:object="${order}">
         <div class="container">
             <div class="row">
                 <div class="col-4">

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="/fragments/header.html :: header"></th:block>
+    <title>Cart</title>
+    <script type="text/javascript" th:src="@{~/js/cart.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/top-bar.html :: contactbar"></div>
+<div th:replace="fragments/navbar.html :: navbar"></div>
+<h1 class="page-title">Change profile information</h1>
+<div class="container text-center">
+    <form th:action="@{~/user/changeinfo}" th:object="${user}" method="POST" enctype="utf8">
+        <input type="hidden" th:field="*{email}">
+        <div class="form-group">
+        <label>First name:</label>
+        <div class="alert alert-danger" th:each="err: ${#fields.errors('firstName')}" th:text="${err}"></div>
+        <input class="form-control" th:field="*{firstName}"/>
+    </div>
+    <div class="form-group">
+        <label>Last name: </label>
+        <div class="alert alert-danger" th:each="err: ${#fields.errors('lastName')}" th:text="${err}"></div>
+        <input class="form-control" th:field="*{lastName}"/>
+    </div>
+    <div class="form-group">
+        <label>Password: </label>
+        <div class="alert alert-danger" th:each="err: ${#fields.errors('password')}" th:text="${err}"></div>
+        <input class="form-control" type="password" th:field="*{password}"/>
+    </div>
+    <div class="form-group">
+        <label>Password confirmation: </label>
+        <div class="alert alert-danger" th:each="err: ${#fields.errors('passwordConfirm')}" th:text="${err}"></div>
+        <input class="form-control" type="password" th:field="*{passwordConfirm}"/>
+    </div>
+    <button type="submit" class="btn btn-primary text-center">Update account</button>
+    </form>
+</div>
+</body>
+</html>

@@ -55,4 +55,12 @@ public class FileService {
 
         return importedProducts;
     }
+
+    public void exportProducts(List<ProductEntity> products){
+        try {
+            objectMapper.writeValue(new File(uploadPath + "export.json"), products);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

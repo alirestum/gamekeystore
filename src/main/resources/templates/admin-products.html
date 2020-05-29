@@ -19,6 +19,7 @@
             <th>Sale price:</th>
             <th>Platform:</th>
             <th>Categories:</th>
+            <th>Availability</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -30,6 +31,7 @@
             <td th:text="${product.salePrice}">500</td>
             <td th:text="${product.platform}">500</td>
             <td><span th:each="category : ${product.categories}" th:text="${category}"></span></td>
+            <td th:text="${product.availability}"></td>
             <td><a th:href="|/admin/products/${product.id}/update|"><i class="fas fa-edit"></i></a>
                 <a th:href="|/admin/products/${product.id}/delete|"><i class="fas fa-trash"></i></a>
             </td>

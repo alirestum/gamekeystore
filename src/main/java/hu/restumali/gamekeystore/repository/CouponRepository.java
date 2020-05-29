@@ -13,8 +13,6 @@ public interface CouponRepository extends JpaRepository<CouponEntity, Long> {
 
     CouponEntity findOneById(Long id);
 
-    CouponEntity findOneByName(String name);
-
     CouponEntity findOneByNameAndDeleted(String name, Boolean deleted);
 
     List<CouponEntity> findAllByDeleted(Boolean deleted);

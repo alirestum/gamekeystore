@@ -28,9 +28,10 @@ async function filter(size, page) {
     }
     let maxPrice = document.getElementById('priceFilter').value;
     let platform = document.getElementById('platformFilter').value;
+    let ageLimit = document.getElementById('ageLimitFilter').value;
     let itemCnt = document.getElementById('itemcnt').value;
     let requestParam = '?platform=' + platform + '&maxprice=' + maxPrice + '&categories=' + categories
-        + '&page=' + page + '&size=' + itemCnt;
+        + '&agelimit=' + ageLimit + '&page=' + page + '&size=' + itemCnt;
     fetch('/api/products/filter' + requestParam).then((response) =>{
        return response.text();
     }).then((html) => {
@@ -47,6 +48,7 @@ async function filter(size, page) {
         }
         document.getElementById('priceFilter').value = maxPrice;
         document.getElementById('platformFilter').value = platform;
+        document.getElementById('ageLimitFilter').value = ageLimit;
         document.getElementById('itemcnt').value = itemCnt;
         window.scrollTo({
             behavior: "smooth",
@@ -89,6 +91,7 @@ async function searchProducts(element) {
         let pattern = new RegExp(param, 'gi');
         for (let name of names){
             name.innerHTML = name.innerText.replace(pattern, param.bold().italics());
+            name.innerText[0] = name.innerText[0].toUpperCase();
         }
     });
 }

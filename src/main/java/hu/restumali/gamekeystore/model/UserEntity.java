@@ -49,5 +49,12 @@ public class UserEntity implements Serializable {
     @Getter @Setter
     private List<UserRoleType> role;
 
+    @ElementCollection
+    @Getter @Setter
+    List<Long> ratedProducts;
+
+    @Getter @Setter
+    private Boolean enabled;
+
 
 }

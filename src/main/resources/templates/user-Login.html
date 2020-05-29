@@ -10,6 +10,7 @@
 <div th:replace="fragments/navbar.html :: navbar"></div>
 <div class="container text-left">
     <h1 class="page-title">Login</h1>
+    <div class="alert alert-danger" th:if="${!param.isEmpty()}">Bad credentials</div>
     <form th:action="@{~/user/login}" method="post">
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>

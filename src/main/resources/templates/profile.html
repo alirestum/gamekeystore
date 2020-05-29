@@ -11,8 +11,10 @@
 <h1 class="page-title">Profile</h1>
 <div class="container text-center">
     <a th:href="@{~/user/orders}"><button class="btn btn-primary">View orders</button></a>
-    <button class="btn btn-primary" th:href="@{~/user/pwdchange}">Change password</button>
+    <a th:href="@{~/user/changeinfo}"><button class="btn btn-primary">Modify account</button></a>
+    <a th:href="@{~/user/rateproducts}"><button class="btn btn-primary">Rate ordered products</button></a>
     <a th:href="@{~/user/logout}"><button class="btn btn-primary">Logout</button></a>
+    <a th:href="@{~/user/closeaccount}"><button class="btn btn-danger">Close account</button></a>
     <h3>Change address</h3>
     <form th:action="@{~/user/profile}" method="post" th:object="${address}">
         <div class="form-group">
